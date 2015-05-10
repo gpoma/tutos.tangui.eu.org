@@ -1,0 +1,48 @@
+---
+layout: post
+title:  "Créer un dégradé transparent sous gimp"
+date:   2008-06-19 15:27:00
+---
+### Contexte
+
+Gimp permet facilement de gérer la transparence sur une image (fonction
+opacité de la fenêtre des calques). Voici comment réaliser une
+transparence dégradée comme dans l'exemple ci dessous :
+
+![](http://tutos.tangui.eu.org/files/exemple_image.png)
+
+### Réalisation
+
+**Ajouter un masque de calque**
+
+Dans la fenêtre de calque, cliquer droit sur le calque sur lequel
+travailler la transparence. Sélectionner Ajouter un masque de calque
+("*Add Layer Mask*" dans la version anglaise) :
+
+![](http://tutos.tangui.eu.org/files/Ajouter%20Calque.png)
+
+**Sélectionner le niveau de transparence original pour ce masque**
+
+Ce masque permettra de travailler la transparence. Le blanc y représente
+l'opacité totale, le noir la transparence totale.
+
+Pour notre image, on selectionne blanc pour une opacité totale :
+
+![](http://tutos.tangui.eu.org/files/Screenshot-Ajouter%20un%20masque%20de%20calque.png)
+
+**Travailler sur le masque de transparence**
+
+Une fois créé, le masque apparaît à droite du calque associé :
+
+![](http://tutos.tangui.eu.org/files/Calques.png)
+
+Un click permet de le sélectionner. On peut le modifier directement
+depuis l'image. Dans l'exemple ci dessous, l'outil de dégradé
+![](http://tutos.tangui.eu.org/files/blend.png) ("*Blend Tool*" en
+anglais) permet de faire un dégradé du blanc vers le noir.
+
+![](http://tutos.tangui.eu.org/files/Screenshot-Calques,%20Canaux,%20Chemins,%20Annuler%20|%20PP-AP,%20Brosses,%20Motifs,%20D%C3%A9grad%C3%A9s-1.png)
+
+L'image finale est possède donc un dégradé de l'opaque vers le
+transparent.
+

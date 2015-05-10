@@ -1,0 +1,32 @@
+---
+layout: post
+title:  "Corriger les problemes d&#039;encodage sous newsportal"
+date:   2008-07-21 16:43:00
+---
+### Contexte
+
+\
+ Sous certaines installations d'apache, newsportal affiche des
+caractères étranges au lieu des caractères accentués. Voici comment
+résoudre ce problème.
+
+### Résolution
+
+Pour corriger les problèmes d'affichage des messages de news, il faut
+modifier dans le fichier de configuration le format d''encodage. De
+base, il est positionné en *iso-8859-15*. En le passant a *utf8*, les
+messages devraient mieux s'afficher :
+
+    user@machine:~$ sudo vi /var/www/news/config.inc.php
+    ...
+    $www_charset = "utf8";
+    ...
+
+Dans l'exemple précédent, newsportal est installer dans le répertoire
+*/var/www/news/*.
+
+Pour corriger les problèmes de message de l'application, il faut
+convertir votre fichier de lang en utf8 comme suit :
+
+    user@machine:~$ cd /var/www/news
+    user@machine:news $ iconv -f ISO8859-9 -t utf8  lang/francais.lang -o /tmp/francais.lang && mv /tmp/francais.lang lang/francais.lang

@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "Comment reconfigurer cpan ?"
+date:   2008-12-08 14:44:00
+---
+Sur de vieilles distributions, l'installation de paquets perl sont
+parfois plus faciles à réaliser via l'outil CPAN. Encore faut-il qu'il
+soit bien configurer !!
+
+La configuration est stockée dans un fichier d'include PERL :
+CPAN/Config.pm
+
+Le pseudo shell cpan permet de relancer une configuration :
+ `root@machine:~ cpan cpan> o conf init `
+
+On vous demandera alors des informations sur la configuration de la
+machine (les valeurs par défaut donc en général bonnes. Si vous avez une
+configuration proxy, indiquez les urls relatives à vos proxy (du type :
+<http://proxy.example.com:8080/>). Il est préférable d'indiquer
+plusieurs mirroirs cpan.
+
+Sinon, vous pouvez procéder manuellement.
+
+Voici une commande permettant de trouver le fichier de conf:
+
+`find /usr/lib -name Config.pm | grep CPAN`
+
+Vous pouvez ensuite soit l'éditer avec votre éditeur préféré.
+

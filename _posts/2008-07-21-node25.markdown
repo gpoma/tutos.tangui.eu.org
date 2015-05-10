@@ -1,0 +1,61 @@
+---
+layout: post
+title:  "Publier en HTTP le contenu de newsgroups"
+date:   2008-07-21 16:35:00
+---
+### Contexte
+
+Un serveur de news existe sur news.example.org. On veut publier son
+contenu en HTTP et autoriser les utilisateurs a participer aux
+discussions
+
+### Réalisation
+
+Le projet [NewsPortal](http://amrhein.eu/newsportal/) répond
+parfaitement a nos besoins. Nous allons voir comment l'installer et le
+configurer.
+
+Installer NewsProtal
+
+[Telecharger newsprotal](http://amrhein.eu/newsportal/download) et
+décompresser l'archive dans le répertoire de publication de votre apache
+(*/var/www* dans cet exemple) :
+
+    user@machine:~$ wget http://amrhein.eu/nw/newsportal/download/newsportal-0.XX.tar.gz
+    user@machine:~$ cd /var/www
+    user@machine:www$ tar zxf ~/newsportal-0.XX.tar.gz
+    user@machine:www $ mv newsportal-0.XX news
+    user@machine:news $
+
+Newsportal répond maintenant sur <http://localhost/news/>
+
+Configurer NewsPortal
+
+Le fichier *config.inc.php* permet d'indiquer le serveur (directives
+*\$server* et *\$port*) a utiliser ainsi que la langue de l'interface
+(directive *\$file\_language*). Voici les directives a changer :
+
+    $server="news.example.org";
+    $port=119;
+    [...]
+    $file_language="lang/francais.lang";
+
+Déclarer les groupes publiés
+
+Le fichier *groups.txt* permet de déclarer les groupes a publier et de
+les reunirs par ensembles. Dans l'exemple suivant, deux ensembles sont
+déclarés (groupes internes et groupes publics) contenant chacun un
+groupe (example.mon\_groupe et fr.bienvenue) :
+
+    :Groupes internes
+    example.mon_groupe
+    :Groupes publics
+    fr.bienvenue
+
+Un fois le fichier édité, il faut supprimer le cache afin que les
+changement soient pris en compte :
+
+    user@machine:news$ sudo rm spool/*
+
+Newsportal fonctionne maintenant !
+

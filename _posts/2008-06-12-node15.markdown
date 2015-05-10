@@ -1,0 +1,73 @@
+---
+layout: post
+title:  "Réparer une table innodb corrompue sous mysql"
+date:   2008-06-12 22:25:00
+---
+Alors que les bases MyISAM possèdent des commandes sql permettant de
+réparer à chaud des tables corrompues (*REPAIR TABLE ...*), innoDB ne le
+permet pas aussi facilement. Voici la marche à suivre pour réparer les
+base innoDB sous mysql.
+
+### Contexte
+
+Les erreurs de corruption se manifestent souvent par des pertes de
+connexion :
+
+    Lost connection to MySQL server during query
+
+On peut vérifier la corruption de la table grâce à la commande *CHECK
+TABLE* :
+
+    user@machine:~$ mysql -u root -p MA_BASE
+    password:
+    mysql> CHECK TABLE MA_TABLE;
+    +---------------------------+-------+----------+----------+
+    | Table                     | Op    | Msg_type | Msg_text |
+    +---------------------------+-------+----------+----------+
+    | MA_BASE.MA_TABLE          | check | error    | Corrupt  |
+    +---------------------------+-------+----------+----------+
+    1 row in set (3.89 sec)
+
+### Résolution
+
+**Passer mysql en mode *recovery*** :
+
+    user@machine:~$ sudo /etc/init.d/mysql stop
+    [sudo] password for user : 
+     * Stopping MySQL database server mysqld          [ OK ] 
+    user@machine:~$ sudo /usr/sbin/mysqld --innodb_log_file_size=5242880 --innodb_force_recovery=6 
+    [...]
+
+La dernière ne rend pas la main, il faut donc exécuter les commandes
+suivantes sur un autre terminal.
+
+**Sauvegarder la base**\
+
+    user@machine:~$ mysqldump -u root -p MA_BASE > MA_BASE.dump
+    password:
+    user@machine:~$
+
+**Supprimer et recréer la base**\
+
+    user@machine:~$ mysql -u root -p 
+    password:
+    mysql > DROP DATABASE MA_BASE;
+    Query OK, 10 rows affected (0.03 sec)
+    mysql > CREATE DATABASE MA_BASE;
+    Query OK, 1 row affected (0.00 sec)
+
+**Relancer mysql en mode normal**\
+
+    user@machine:~$ sudo /etc/init.d/mysql restart
+     * Stopping MySQL database server mysqld          [ OK ] 
+     * Starting MySQL database server mysqld          [ OK ] 
+    user@machine:~$
+
+**Réimporter votre base**\
+
+    user@machine:~$ mysql -u root -p  MA_BASE < MA_BASE.dump
+    password:
+    user@machine:~$
+
+Votre base est maintenant réparée et pleinement fonctionnelle.
+

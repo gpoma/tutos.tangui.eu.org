@@ -1,0 +1,35 @@
+---
+layout: post
+title:  "Faire une video à partir d&#039;une série d&#039;images"
+date:   2008-07-11 12:16:00
+---
+### Contexte
+
+Faire d'un groupe d'images contenu dans un répertoire, une vidéo au
+format mpeg.
+
+### Réalisation
+
+Les images utilisées sont toutes dans un répertoire. Leur nom doit
+indiqué leur place dans la video.
+
+Normalisation des nom d'image
+
+*ffmeg* attend un format précis pour le nom de chacune de nos images. La
+ligne suivante respecte le format attendu :
+
+    cpt=0 ; for i in *jpg ; do cpt=$(($cpt + 1)); mv "$i" $(printf "%05d" $cpt).jpg; done;
+
+L'exécution de ce mini script shell renomme toutes les images en suivant
+un format pris en charge par ffmpeg. La première image s'appelle
+00001.jpg, la seconde 00002.jpg, ...
+
+Conversion des jpeg en vidéo
+
+La ligne suivant convertit les images au nom normalisé en vidéo :
+
+    ffmpeg -r 2 -b 1800 -i %05d.jpg video.mp4
+
+L'option -r indique le nombre d'image par seconde de la vidéo.\
+ L'option -b indique la qualité de la vidéo (en octet par seconde)
+

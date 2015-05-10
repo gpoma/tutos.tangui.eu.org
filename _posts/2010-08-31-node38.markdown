@@ -1,0 +1,26 @@
+---
+layout: post
+title:  "En shell, comment limiter la largeur des lignes d&#039;un fichier texte ?"
+date:   2010-08-31 10:20:00
+---
+Imaginons un fichier texte (*fichier.txt*) dont le nombre de caractères
+par ligne est important. Nous souhaitons l'afficher (ou l'envoyer par
+mail) à des utilisateurs. Pour améliorer la présentation de ce fichier,
+nous allons chercher à limiter la taille des lignes à 150 caractères.
+Pour se faire, deux solutions :
+
+Tronquer les lignes trop longues
+--------------------------------
+
+    cat fichier.txt | awk '{str="";if (length($0)>150) sub="..."; \
+    print substr($0,0,150) sub ; }'
+
+[source](http://unstableme.blogspot.com/2009/09/truncate-string-using-bash-script.html)
+
+Afficher les lignes trop longues sur plusieurs lignes
+-----------------------------------------------------
+
+    cat fichier.txt | fold -w 150 -s
+
+L'option -s permet de ne passer à la ligne que sur une fin de mot.
+

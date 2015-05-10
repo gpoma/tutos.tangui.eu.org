@@ -1,0 +1,49 @@
+---
+layout: post
+title:  "Lier un squid avec un autre proxy"
+date:   2008-05-28 23:49:00
+---
+### Contexte
+
+Mettre en place un proxy squid qui n'aura pas accès directement à
+Internet mais y accédera à travers un autre proxy (qu'on ne maitrise
+pas).
+
+### Réalisation
+
+Editer le fichier de configuration de squid (*/etc/squid/squid.conf* ou
+*/etc/squid.conf*) pour y activer la directive *cache\_peer*.
+
+    user@machine:~ $ vi /etc/squid/squid.conf
+    [...]
+    cache_peer 192.168.1.2 parent 8080 0 proxy-only no-query
+    [...]
+
+*192.168.1.2* est l'adresse ip du proxy père (qui fournit l'accès à
+internet)\
+ *8080* est le port de communication avec le proxy\
+ *0* est une valeur aléatoire pour le port *icp*\
+ *proxy-only* indique que notre proxy local ne concerve pas les pages
+localement mais les demande au proxy père à chaque requête\
+ *no-query* indique qu'on utilise pas le protocole de dialogue inter
+proxy icp (pour *Internet Cache Protocol*)
+
+Si le serveur n'a pas accès directement à internet, il faut le spécifier
+dans la configuration avec la directive :
+
+    never_direct allow all
+
+Cette directive doit être insérée après la définition de l'*acl* *all*.
+
+Après avoir redémarrer squid, quelque soit le type d'intérogration
+(Méthodes HTTP POST ou GET avec des arguments ou non), toutes les
+connexions passeront à travers le proxy père.
+
+Dans la configuration précédente, le proxy père ne supporte pas le
+protocole *Internet Cache Protocol*. Si *icp* est supporté sur le père,
+utiliser la configuration suivante :
+
+    user@machine:~ $ vi /etc/squid/squid.conf
+    [...]
+    cache_peer 192.168.1.2 parent 8080 3130 proxy-only
+    [...]

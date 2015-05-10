@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "include PHP : URL file-access is disabled"
+date:   2008-07-31 09:43:00
+---
+### Contexte
+
+En essayant d'inclure un script distant, php donne l'erreur suivante :
+
+    URL file-access is disabled
+
+### Résolution
+
+Si vous avez accès au fichier de configuration de php (*php.ini*) passez
+la directive *allow\_url\_include* à *on* :
+
+    ; Whether to allow the treatment of URLs (like http:// or ftp://) as includes.
+    allow_url_include = On
+
+Certaines configurations interdisent également l'ouverture d'url avec
+fopen. Dans ce cas, il faut passer à *On* la directive
+*allow\_url\_fopen*.
+

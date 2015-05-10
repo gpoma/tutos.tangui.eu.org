@@ -1,0 +1,19 @@
+---
+layout: post
+title:  "Résoudre l&#039;erreur &quot;preprocessor /lib/cpp fails sanity check&quot; d&#039;un ./configure"
+date:   2008-07-22 13:21:00
+---
+### Contexte
+
+En essayant de compiler une application pour une première sur une
+nouvelle distribution, le *./configure* retourne l'erreur suivante :
+
+    configure: error: C preprocessor "/lib/cpp" fails sanity check
+
+### Résolution
+
+Installer les *headers* de la librairie standard utilisé par cpp :
+
+Sous Fédora :
+
+    user@machine:~$ yml -y install glibc-headers

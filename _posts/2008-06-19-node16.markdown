@@ -1,0 +1,35 @@
+---
+layout: post
+title:  "Faire en sorte que mon identification par clée publique fonctionne avec ssh"
+date:   2008-06-19 15:26:00
+---
+### Contexte
+
+La clé publique rsa ou dsa a été copiée sur le serveur sur le compte de
+l'utilisateur vers lequel on se connecte. La connexion ne s'effectue pas
+sans saisie de mot de passe
+
+### Résolution
+
+**Se connecter sur le serveur**
+
+    user@machine:~$ ssh utilisateur@machine.distante.com
+    password:
+    utilisateur@machine.distante.com:~
+
+**Vérifier les droits sur le répertoire .ssh et le fichier
+authorized\_keys**
+
+    utilisateur@machine.distante.com:~$ ls -ld .ssh .ssh/authorized_keys
+    drwxr-xr-x 2 utilisateur utilisateur 4096 2008-06-09 14:02 .ssh
+    -rw-r--r-- 1 utilisateur utilisateur 1205 2007-04-20 16:39 .ssh/authorized_keys
+    utilisateur@machine.distante.com:~$
+
+**Changer les droits sur .ssh et authorized\_keys**
+
+    utilisateur@machine.distante.com:~$ chmod 700 .ssh
+    utilisateur@machine.distante.com:~$ chmod 600 .ssh/authorized_keys
+    utilisateur@machine.distante.com:~$ ls -ld .ssh .ssh/authorized_keys
+    drwx------ 2 utilisateur utilisateur 4096 2008-06-09 14:02 .ssh
+    -rw------- 1 utilisateur utilisateur 1205 2007-04-20 16:39 .ssh/authorized_keys
+    utilisateur@machine.distante.com:~$

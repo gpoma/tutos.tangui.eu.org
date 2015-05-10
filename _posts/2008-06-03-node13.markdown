@@ -1,0 +1,16 @@
+---
+layout: post
+title:  "Renommer le nom (label) d&#039;un volume vfat "
+date:   2008-06-03 21:53:00
+---
+Pour renommer une partition vfat, il faut utiliser la commande mlabel
+issue du projet [mtools](http://mtools.linux.lu/).
+
+Imaginons une clé USB accessible depuis le périphérique /dev/sdb1. Pour
+changer son nom, utiliser la ligne de commande suivante :
+
+    user@machine:~ $ mlabel -i /dev/sdb1 ::NOUVEAU_NOM
+
+Ne pas oublier de faire précéder le nom (NOUVEAU\_NOM dans l'exemple)
+par :: !
+

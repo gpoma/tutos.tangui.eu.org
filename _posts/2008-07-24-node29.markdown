@@ -1,0 +1,16 @@
+---
+layout: post
+title:  "Remplacer la fonction php 5 hash_hmac"
+date:   2008-07-24 16:25:00
+---
+### Contexte
+
+Sur certains serveur, on n'a pas la liberté d'installer php 5 qui
+supporte la fonction *hash\_hmac*. Voici comment recréer cette fonction
+à partir de la bibliothèque pear.
+
+### Réalisation
+
+-   Installer Crypt\_HMAC via pear
+-   Déclarer la fonction hash\_hmac() dans votre code :
+

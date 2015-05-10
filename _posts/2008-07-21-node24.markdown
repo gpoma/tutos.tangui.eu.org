@@ -1,0 +1,33 @@
+---
+layout: post
+title:  "Configurer yum avec un proxy"
+date:   2008-07-21 15:17:00
+---
+### Contexte
+
+Dans certaines organismes, l'acces a internet meme pour les serveurs se
+fait a travers un proxy. Pour pouvoir utiliser yum sous Fedora, il faut
+donc le configurer pour qu'il dialogue avec le proxy.
+
+### Realisation
+
+Ajouter un ligne de configuration du proxy comme suit :
+
+    user@machine:~$ sudo vi /etc/yum.conf
+    [main]
+    ...
+    proxy=http://domaine_du_proxy:port_du_proxy
+
+avec *domain\_du\_proxy*, le domaine ou l'ip de votre proxy
+(proxy.example.com, par exemple) et *port\_du\_proxy*, le port du prxoy
+(en general 8080 ou 3128)
+
+On peut maintenant mettre a jour sa fedora :
+
+    user@machine:~$ sudo yum update
+    Mot de passe : 
+    fedora                    100% |=========================| 2.1 kB    00:00     
+    updates                   100% |=========================| 2.3 kB    00:00     
+    Setting up Update Process
+    Resolving Dependencies
+    --> Running transaction check

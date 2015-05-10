@@ -1,0 +1,67 @@
+---
+layout: post
+title:  "Apache Erreur 403 : Directory index forbidden"
+date:   2008-05-29 12:44:00
+---
+### Contexte
+
+En interrogeant une url, apache retourne une erreur "*403 forbidden*" ;\
+ En regardant à la fin du fichier log d'erreur, on trouve une erreur
+"Directory index forbidden" :
+
+    user@machine: ~ $ tail /var/log/apache2/error.log
+    [...]
+    Thu May 29 07:11:08 2008] [error] [client XXX.XXX.XXX.XXX] Directory index forbidden by Options directive: /var/www/repertoire
+
+D'autres raisons d'erreur 403 sont expliquées dans le post :
+ [D'où vient l'erreur "403 Forbidden" d'apache
+?](/5-dou-vient-lerreur-403-forbidden-dapache).
+
+### Résolution
+
+Deux possibilités pour résoudre cette erreur :
+
+**Créer une fichier d'index** (*index.html*) dans le repertoire
+incriminé (dans notre exemple */var/www/repertoire*)\
+
+    user@machine: ~ $ cd /var/www/repertoire
+    user@machine:repertoire $ nano index.html
+    Contenu de ma page index
+
+**Autoriser les indexes automatiques** dans la configuration d'apache.
+Ca se fait via la directive *Options +Indexes* pour le repertoire
+*/var/www/repertoire/* :
+
+    user@machine: ~ $ nano /etc/apache2/conf.d/index_auto.conf
+    <Directory /var/www/repertoire>
+            Options +Indexes
+    </Directory>
+
+Pour Redhat, Fedora ou Mandriva, il faut éditer le fichier
+*/etc/httpd/conf/httpd.conf*
+
+Si vous n'avez pas les droits d'accéder à la configuration d'apache,
+vous pouvez utiliser le fichier de délégation de configuration
+*.htaccess* :
+
+    user@machine:~ $ cd /var/www/repertoire
+    user@machine:repertoire $ nano .htaccess
+    Options +Indexes
+
+### Explications
+
+Lorsqu'une url correspondant à un répertoire est interrogé, apache y
+recherche un fichier d'index. Ces fichiers sont définis dans la conf
+d'apache par la directive *DirectoryIndex*, qui a comme valeur en
+général *index.html* et *index.php*.
+
+Si aucun des fichiers n'est présent dans le répertoire, apache regarde
+si il a les droits pour générer automatiquement un index (qui contiendra
+le *listing* des fichiers du répertoire). Les droits sont définis par la
+directive *Options +Indexes* encadré par une balise conditionnelle
+*Directory* si on passe par un fichier de configuration apache.
+
+La directive est mise telle quelle dans le fichier *.htaccess*. Ce
+fichier permet de ré-écrire des éléments de configuration depuis un
+répertoire de publication.
+

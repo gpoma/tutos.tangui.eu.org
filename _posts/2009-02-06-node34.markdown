@@ -1,0 +1,43 @@
+---
+layout: post
+title:  "Comment avoir une redhat 5 maintenable et à jour (utilisez dag et epel !)"
+date:   2009-02-06 18:15:00
+---
+Administrer une redhat c'est toujours très chi\*%\\!§t et vraiment très
+limitant : les dépendances sont difficiles à résoudre, les packets
+rarement à jour, ... Malheureusement on n'a pas toujours le choix
+d'installer autre chose.
+
+Heureusement deux projets rendent la vie plus facile :
+[dag](http://dag.wieers.com/rpm/) et
+[Epel](http://fedoraproject.org/wiki/EPEL). Voici comment les intégrer à
+yum.
+
+### Intégration d'Epel (Extra Packages for Entreprise Linux)
+
+Ce projet issu de la communauté Fedora permet d'avoir accès à des
+logiciels non packagés par redhat mais assez
+
+Pour ajouter Epel à votre yum, installez le packet
+[epel-release](http://download.fedora.redhat.com/pub/epel/5/i386/repoview/epel-release.html).
+Pour une redhat 5 sous i386, voici la commande à utiliser :
+
+    $ su -c 'rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm'
+
+### Intégration de DAG
+
+[Dag](http://dag.wieers.com/rpm/) propose plus 4 000 packets pour des
+projets très variés. Pour l'intégrer dans votre yum, il faut installer
+[rpmforge-release](http://dag.wieers.com/rpm/packages/rpmforge-release/).
+Voici la commande pour redhat5 (i386) :
+
+    $ su -c 'rpm -Uvh http://dag.wieers.com/rpm/packages/rpmforge-release/rpmforge-release-0.3.6-1.el5.rf.i386.rpm'
+
+### Mise à jour de yum
+
+Il vous reste maintenant plus qu'à mettre à jour votre base yum et
+l'utiliser :
+
+    $ yum update
+    [...]
+    $ yum install fuse

@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "Encoder une video en ogg théora"
+date:   2008-06-02 00:04:00
+---
+L'outil permettant d'encoder une video en ogg théora est
+[ffmpeg2theora](). Une fois installé, il suffit de lui passer en
+argument une vidéo lisible par ffmpeg pour qu'elle doit convertie :
+
+    user@machine:~ $ ffmpeg2theora video.avi 
+    Input #0, avi, from 'video.avi':
+      Duration: 00:07:17.2, start: 0.000000, bitrate: 30336 kb/s
+      Stream #0.0: Video: dvvideo, yuv420p, 720x576, 28800 kb/s, 25.00 fps(r)
+      Stream #0.1: Audio: pcm_s16le, 48000 Hz, stereo, 1536 kb/s
+      Pixel Aspect Ratio: 1.09/1   Frame Aspect Ratio: 1.37/1
+      Resize: 720x576
+          0:01:46.31 audio: 65kbps video: 921kbps, time remaining: 00:00:00
+    user@machine:~ $ file video.avi
+    video.avi: Ogg data, Theora video
+    user@machine:~ $

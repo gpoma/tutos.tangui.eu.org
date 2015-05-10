@@ -1,0 +1,43 @@
+---
+layout: post
+title:  "Rechercher dans un xml avec xmlstarlet"
+date:   2008-07-17 22:38:00
+---
+*xmlstarlet* est un outil libre qui permet de rechercher des
+informations dans un fchier xml. Voici un example d'utilisation.
+
+Imaginons un fichier xml contenant plusieurs enregistrements du type :
+
+    ...
+      <page>
+        <title>Titre Page</title>
+        <id>3919</id>
+        <revision>
+          <id>62498</id>
+          <timestamp>2008-06-01T11:18:23Z</timestamp>
+          <contributor>
+            <username>Utilisateur1</username>
+            <id>783</id>
+          </contributor>
+          <minor />
+          <comment>Révocation des modifications</comment>
+          <text>Voici le texte de la page</text>
+        </revision>
+      <page>
+    ...
+
+avec xmlstarlet nous allons pouvoir sélectionner le contenu (balise
+*\<text\>*) d'une page identifié par son titre (*\<title\>*) :
+
+    user@machine:~$ xmlstarlet sel -t -m "//page[title='Titre Page']/revision" -v text -n fichier.xml
+    Voici le texte de la page
+
+Voici la signification des arguments utilisé :
+ *sel* : passe xmlstarlet en mode selection\
+ *-t* : indique qu'on passe en mode *template*\
+ *-m "//page[title='Titre Page']/revision"* : recherche (*match*) une
+balise page qui contient un balise title contenant la chaine 'Titre
+Page' puis se positionne sur la balise fille revision\
+ *-v text* : imprime le contenu de la balise fille *text*\
+ *-n* : après chaque enregistrement correspondant saute une ligne
+

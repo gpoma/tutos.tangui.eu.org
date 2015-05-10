@@ -1,0 +1,31 @@
+---
+layout: post
+title:  "Nagios is currently not checking for external commands"
+date:   2008-07-15 13:53:00
+---
+### Contexte
+
+Lorsqu'on essaie de rescheduler une tache nagios à partir de l'interface
+web, l'erreur suivante apparait :
+
+    Sorry, but Nagios is currently not checking for external commands, so your command will not be committed!
+    Read the documentation for information on how to enable external commands...
+
+### Résolution
+
+Dans le fichier de configuration principal de nagios
+(*/etc/nagios/nagios.cfg*), la directive *check\_external\_command* est
+déractivée, Editez la en lui affectant la valeur 1 :
+
+    check_external_command=1
+
+Redémarrer Nagios pour que cette modification prise en compte :
+
+    user@machine:~ $ /etc/init.d/nagios restart
+
+Le démon nagios est maintenant réceptif aux commandes externes (dont
+celles envoyées depuis l'interface web). Le fichier de dialogue a dû
+apparaitre :
+
+    user@machine:~ $ ls -l /var/log/nagios/rw/nagios.cmd
+    prw-rw---- 1 nagios apache 0 jui 15 15:51 nagios.cmd

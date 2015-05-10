@@ -1,0 +1,95 @@
+---
+layout: post
+title:  "Comment réduire une partition root LVM ?"
+date:   2010-09-20 15:49:00
+---
+LVM n'est pas toujours bien configuré à l'installation d'une machine
+(c'est en tout cas le cas dans certaines grandes institutions
+européenne). Alors que cette technologie permet d'apporter plus de
+fléxibilité dans la gestion des disques (notamment en leur attribuant à
+chaud des ressources supplémentaires), certaines configuration attribue
+l'intégralité des disques disponibles à la seule partition /. Du coup,
+impossible d'en créer de nouvelles : retailler un LVM n'étant possible à
+chaud, sous ext3, qu'en augmentant les ressources.
+
+Voici une méthode qui permet sans livecd, qui est la solution la plus
+simple, d'arriver à réduire la partition / d'un système à partir d'un
+initrd customizé.
+
+Compiler statiquement resize2fs et e2fsck
+-----------------------------------------
+
+Pour pouvoir réduire la taille de notre partition principale, nous avons
+besoin de deux outils de la suite
+[e2fsprogs](http://e2fsprogs.sourceforge.net/) : resize2fs et e2fsck.
+Pour qu'ils puissent être utilisé via initrd, il nous faut des versions
+statiques de ces logiciels :
+
+1.  Télécharger les sources dans /tmp
+2.  Désarchiver les sources :
+
+        $ tar zxvf e2fsprogs*tgz
+        $ cd e2fsprogs*
+
+3.  Compiler les deux outils :
+
+        $ make -C resize resize2fs.static
+        $ make -C e2fsck e2fsck.static
+
+Préparer un nouvel initrd
+-------------------------
+
+Désarchiver l'initrd existant :
+
+    $ cd /tmp
+    $ mkdir initrd
+    $ cd initrd
+    $ zcat /boot/initrd-$(uname -r).img | cpio -icvd
+
+Copier les versions statiques de resize2fs et e2fsck :
+
+    cp /tmp/e2fsprogs*/resize/resize2fs.static bin/resize2fs
+    cp /tmp/e2fsprogs*/e2fsck/e2fsck.static bin/e2fsck
+
+Editer le script d'initialisation pour retailler la partition lvm. Dans
+l'exemple suivant, la partition / est accessible depuis
+/dev/myvg/rootvol et nous en réduisons la taille à 50Go :
+
+    $ vi init
+    [...]
+    echo Scanning logical volumes
+    lvm vgscan --ignorelockingfailure
+    echo Activating logical volumes
+    lvm vgchange -ay --ignorelockingfailure  myvg
+    e2fsck -f /dev/myvg/rootvol
+    resize2fs /dev/myvg/rootvol 50G
+    resume LABEL=SWAP-sda3
+    [...]
+
+Créer un nouveau initrd
+-----------------------
+
+    find ./ | cpio -H newc -o | gzip > /boot/initrd-resize.img
+
+Redemarrer en changeant le grub afin qu'il utilise le nouvel initrd
+-------------------------------------------------------------------
+
+Il est préférable de faire cette opération en mode interractif. Lors du
+reboot, entrez dans le mode interractif puis éditer la ligne concernant
+le démarrage de votre système. Editez la ligne dédiée à l'initrd pour en
+changer le nom afin qu'il utilise initrd-resize.img.
+
+Une fois redémarrer, le système doit nous informer de la nouvelle taille
+de notre système de fichier :
+
+    $df -h
+    Filesystem                  Size  Used Avail Use% Mounted on
+    /dev/mapper/myvg-rootvol    50G  2.1G   44G   5% /
+
+Retailler le LVM
+----------------
+
+Pour finir, il nous reste à libérer l'espace LVM non utilisé en
+retaillant notre *Logical Volume* :
+
+    $ lvresize -L 50G /dev/myvg/rootvol

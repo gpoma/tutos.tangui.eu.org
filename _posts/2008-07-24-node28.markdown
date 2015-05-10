@@ -1,0 +1,16 @@
+---
+layout: post
+title:  "Utiliser PEAR à travers un Proxy"
+date:   2008-07-24 16:11:00
+---
+### Contexte
+
+La machine sur laquelle on souhaite utiliser php/pear est accède à
+internet à travers un proxy http.
+
+### Résolution
+
+Pour pouvoir télécharger et installer des packets pear, executer la
+commande :
+
+    pear config-set http_proxy "http://LOGIN:MOT_DE_PASSE@IP_SERVEUR:PORT_PROXY"

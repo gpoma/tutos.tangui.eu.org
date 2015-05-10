@@ -1,0 +1,50 @@
+---
+layout: post
+title:  "Erreur 403 d&#039;apache : Permission denied"
+date:   2008-05-29 13:02:00
+---
+### Contexte
+
+En interrogeant une url, apache retourne une erreur "*403 forbidden*" ;\
+ Une erreur "*Permission denied*" est loguée à la fin du fichier
+d'erreur :
+
+    user@machine: ~ $ tail /var/log/apache2/error.log
+    [...]
+    Thu May 29 07:11:08 2008] [error] [client XXX.XXX.XXX.XXX] (13)Permission denied: access to /repertoire denied
+
+D'autres raisons d'erreur 403 sont expliquées dans le post :
+ [D'où vient l'erreur "403 Forbidden" d'apache
+?](/5-dou-vient-lerreur-403-forbidden-dapache).
+
+### Résolution
+
+Imaginons que le *DocumentRoot* du site soit positionné à */var/www/* et
+que l'url problématique soit
+<http://localhost/repertoire/document.html>. Il faut vérifier que
+l'utilisateur exécutant apache (*www-data* ou *apache*) puisse lire le
+fichier /var/www/repertoire/document.html et qu'il puisse accéder à tous
+les répertoires parents.
+
+    user@machine:~ $ ls -ld /var
+    drwxr-xr-x 15 root root 4096 jan 28 01:05 /var
+    user@machine:~ $ ls -ld /var/www
+    drwxr-xr-x 15 root root 4096 jan 28 01:05 /var/www
+    user@machine:~ $ ls -ld /var/www/repertoire
+    drwxr-x--- 15 root root 4096 jan 28 01:05 /var/www/repertoire  Pb de droits !!
+    user@machine:~ $ chmod a+rX /var/www/repertoire
+    user@machine:~ $ ls -ld /var/www/repertoire
+    drwxr-xr-x 15 root root 4096 jan 28 01:05 /var/www/repertoire
+    user@machine:~ $ ls -ld /var/www/repertoire/document.html
+    drw-r----- 15 root root 4096 jan 28 01:05 /var/www/repertoire/document.html     Pb de droits !!
+    user@machine:~ $ chmod a+r /var/www/repertoire/document.html
+    user@machine:~ $ ls -ld /var/www/repertoire/document.html
+    drw-r--r-- 15 root root 4096 jan 28 01:05 /var/www/repertoire/document.html
+
+L'utilisateur apache n'avait pas les droits d'accès sur le répertoire
+*repertoire* ni les droits de lecture sur le fichier *document.html*.
+
+Grâce à la commande *chmod*, ces problèmes de droits ont été résolus.
+l'argument *a+rX* a permis d'activer les droits en lecture (r) et ceux
+d'accès au repertoire (X) pour tous les utilisateurs (a).
+

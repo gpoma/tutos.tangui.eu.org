@@ -1,0 +1,69 @@
+---
+layout: post
+title:  "Comment annuler un commit sur svn ?"
+date:   2010-09-02 17:32:00
+---
+Il n'est rare de faire des commits malheureux et nous nous en apercevons
+toujours quelques secondes après avoir commité. Il est possible de
+"defaire" ce changement.
+
+Voici comment revenir à la version précédente.
+
+Noter la version actuelle du ou des fichiers incriminer
+-------------------------------------------------------
+
+    $ svn info chemin/vers/mon/fichier
+    Chemin : chemin/vers/mon/fichier
+    Nom : fichier
+    URL : **************
+    Racine du dépôt : *******************
+    UUID du dépôt : 887c483c-089b-4cf6-ab2a-4bd931dc3618
+    Révision : 269
+    Type de nœud : fichier
+    Tâche programmée : normale
+    Auteur de la dernière modification : user
+    Révision de la dernière modification : 269
+    Date de la dernière modification: 2010-09-02 19:07:25 +0200
+    Texte mis à jour: 2010-09-02 19:02:24 +0200
+    Somme de contrôle : 94baaad4d1347ec6e15ae35c88ee8bc8
+
+Ici c'est la révision 269.
+
+Vérifier le numéro de révision de la bonne version
+--------------------------------------------------
+
+    svn -r 268 update
+
+Cette commande rapatrie le fichier et nous permet de le lire pour
+s'assurer qu'il contient ce que nous souhaitons. Si ce n'est pas le cas,
+nous devrons réutiliser cette commande pour remonter dans le temps.
+
+Si la version 268 est la bonne, retournons à la version actuelle de
+notre svn :
+
+    $ svn update
+
+Merger notre fichier avec la version sélectionnée
+-------------------------------------------------
+
+La commande permettant de "defaire" un commit svn est la suivante
+
+    $ svn -r <version actuelle>:<version précédente> merge 
+
+Comme nous avons maintenant toutes les informations nécessaires : nous
+devons écraser la version 269 par la version 268. Voici la commande qui
+permet de le faire :
+
+    $ svn merge -r 269:268 merge chemin/vers/mon/fichier
+
+Publier l'annulation
+--------------------
+
+Reste maintenant à partager cette annulation en le commitant :
+
+    $ svn commit
+
+Si le commit malheureux est un peu plus large qu'un simple fichier, il
+est également possible de procéder avec un repertoire voire
+l'intégralité du *repository*.
+

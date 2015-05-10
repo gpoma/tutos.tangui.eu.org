@@ -1,0 +1,112 @@
+---
+layout: post
+title:  "Créer une partition chiffrée avec cryptsetup"
+date:   2009-02-06 15:06:00
+---
+Voici comment « crypter » une partition en utilisant la spécification
+LUKS (*Linux Unified Key Setup*). Il existe également des outils
+*Windows* pour accéder à ce type de partition.
+
+Création de la partition chiffrée
+---------------------------------
+
+### Démonter la partition à chiffrer
+
+Il faut que la partition utilisée ne soit pas montée pour pouvoir créer
+votre partition chiffrée. Sinon vous aurez des erreurs du type :
+
+    Check kernel for support for the aes-cbc-essiv:sha256 cipher spec 
+    and verify that your device contains at least 133 sectors.
+
+ou
+
+    $ dmesg
+    table: 254:0: crypt: Device lookup failed
+    ioctl: error adding target to table
+    ioctl: device doesn't appear to be in the dev hash table.
+
+### Créer le conteneur de chiffrement
+
+L'outil **cryptsetup** et le module **dm-crypt** vont être utilisés pour
+créer et utiliser notre partition.
+
+La partition d'une clé USB accessible sur le périphérique sda1 est créée
+depuis la commande suivante :
+
+     $ sudo cryptsetup luksFormat /dev/sda1 
+
+    WARNING!
+    ========
+    This will overwrite data on /dev/sdb1 irrevocably.
+
+    Are you sure? (Type uppercase yes): YES
+    Enter LUKS passphrase: 
+    Verify passphrase: 
+    Command successful.
+
+Une confirmation est demandée. Il faut inscrire YES en majuscule.\
+ Avant d'être créée, l'outil demande une passphrase de chiffrement
+(équivalent à un mot de passe).
+
+### Connecter le conteneur
+
+Pour connecter votre nouveau conteneur chiffré au système
+d'exploitation, on utilise de nouveau cryptsetup :
+
+    $ sudo cryptsetup luksOpen /dev/sda1 usb
+    Enter LUKS passphrase: 
+    key slot 0 unlocked.
+    Command successful.
+
+Votre passphrase est demandée\
+ Le conteneur est maintenant accessible depuis le périphérique virtuel
+/dev/mapper/**usb**.
+
+### Formater le nouveau système de fichier
+
+Pour formater le périphérique virtuel, on utile mkfs (ici vfat pour
+pouvoir y accéder sur d'autres OS que GNU/Linux).
+
+    $ sudo mkfs.vfat /dev/mapper/usb
+
+### Deconnecter le conteneur
+
+Pour déconnecter le conteneur (non monté) :
+
+    $ sudo cryptsetup luksClose usb
+
+Utiliser la partition (mode automatique)
+----------------------------------------
+
+Débrancher et rebrancher. Votre distribution (Ubuntu, Fedora) reconnait
+alors votre clé chiffrée et vous demande votre passphrase pour décrypter
+la partition.
+
+![](http://tutos.tangui.eu.org/files/Screenshot-Unlock%20Encrypted%20Data.png)
+
+Monter manuellement une partition chiffrée
+------------------------------------------
+
+Si votre distribution ne supporte pas la reconnaissance automatique de
+votre clé. Voici les commandes à utiliser si la clé est accessible
+depuis le périphérique sda1 (interrogez dmesg pour connaitre l'adresse
+du votre clé).
+
+    $ sudo cryptsetup luksOpen /dev/sda1 usb
+    Enter LUKS passphrase: 
+    key slot 0 unlocked.
+    Command successful.
+    $ sudo mkdir /mnt/usb
+    $ sudo mount /dev/mapper/usb /mnt/usb
+
+Pour démonter votre clé :
+
+    $ sudo umount /mnt/usb
+    $ sudo cryptsetup luksClose usb
+
+Utiliser la partition chiffrée sous windows
+-------------------------------------------
+
+Le projet [Free OTFE](http://www.freeotfe.org/) propose des outils pour
+créer et utiliser des disques chiffrés en LUKS.
+

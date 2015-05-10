@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "Sauvegarder une base de données avec mysqldump"
+date:   2008-06-02 00:14:00
+---
+L'outil mysqldump permet de sauvegarder une base de données mysql dans
+le format sql.
+
+Comme beaucoup de "framework" se charge de créer la structure de la
+base, il est préférable de ne pas l'inclure dans les sauvegardes
+totales.
+
+    user@machine:~ $ mysqldump -u utilisateur_mysql -p nom_base_a_sauver -q --single-transaction -R -t --disable-keys --complete-insert > dump.sql
+
+En général, cette commande est exécutée par un script, la base y est
+compressée et datée :
+
+    user@machine:~ $ cat backup_mysql
+    #!/bin/bash
+    NOM_BASE=nom_base_a_sauver
+    UTILISATEUR_MYSQL=utilisateur
+    MOTDEPASSE_MYSQL=motdepasse
+    mysqldump --user=$UTILISATEUR_MYSQL --password=$MOTDEPASSE_MYSQL $NOM_BASE -q --single-transaction -R -t --disable-keys --complete-insert| bzip2 > $(date +%F-%T)_$NOM_BASE.sql.backup
+    user@machine:~ $

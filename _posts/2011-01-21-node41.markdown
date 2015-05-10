@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "Supprimer un répertoire de l&#039;historique d&#039;un svn"
+date:   2011-01-21 13:40:00
+---
+Pour supprimer un répertoire de l'historique, il existe la commande
+**svndumpfilter**.
+
+Pour l'utiliser :
+
+1.  Dumpez votre *repository* svn :
+
+        svnadmin dump REPO_PATH > svn.dump
+
+2.  Importer le dump sur un nouveau repository en excluant le repertoire
+    REP\_A\_SUPPRIMER :
+
+        $ mkdir new_svn
+        $ svnadmin create new_svn
+        $ svndumpfilter excluse REP_A_SUPPRIMER | svnadmin load new_svn 
+
+Pour supprimer le contenu d'un fichier, suivez cette
+[page](http://tutos.tangui.eu.org/node/36).
+

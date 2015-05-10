@@ -1,0 +1,97 @@
+---
+layout: post
+title:  "Migration SVN : comment supprimer des infos confidentielles ?"
+date:   2010-08-16 22:49:00
+---
+Il peut arriver de *commiter* par erreur une information confidentielle
+dans un svn qui est public (mot de passe, clé secrète, ...). L'atout du
+gestionnaire de version (l'historisation de l'information) devient alors
+un défaut : le mot de passe commité restera visible dans l'historique du
+svn même si le fichier en question est modifié.
+
+Pour supprimer un répertoire entier, cette [page est plus
+appropriée](http://tutos.tangui.eu.org/41-supprimer-un-repertoire-de-lhistorique-dun-svn).
+
+Voici une procédure qui permet de retirer de telles informations
+confidentielles de l'historique d'un svn.
+
+Sauvegarder son svn
+-------------------
+
+La première étape consiste à faire une sauvegarde du svn. C'est depuis
+cette sauvegarde qu'on travaillera par la suite :
+
+    $ svnadmin dump /chemin/vers/svn > svn.dump
+
+Réécrire l'info confidentielle
+------------------------------
+
+Pour faire oublié notre information confidentielle, nous allons la
+remplacer par une autre chaine de caractère. La sauvegarde SVN, en plus
+du contenu des diférentes version du fichiers en stocke également la
+taille. Pour éviter d'avoir à trop triturer le fichier, nous
+remplaceront l'info à effacer par une chaine de caractère de même
+taille. Dans l'exemple qui suit, nous remplaçons *toto\_42\_plop* par
+*mot\_de\_passe* :
+
+    $ sed 's/toto_42_plop/mot_de_passe/' svn.dump > svn_sans-mdp.dump
+
+Modifier l'empreinte du fichier
+-------------------------------
+
+Malheureusement le travail n'est pas terminé. Si nous tentons de charger
+notre fichier svn telquel, l'erreur suivante ce produira :
+
+    $ mkdir tmp_svn
+    $ svnadmin create tmp_svn
+    $ svnadmin load tmp_svn < svn_sans-mdp.dump
+    ...
+    Fichier config/database.conf : erreur de hash
+        attendu : 94baaad4d1347ec6e15ae35c88ee8bc8
+        obtenu : e892ae55ad52778b553dbcbc8d9a7c46
+
+En plus de la taille des différentes version du fichier, la sauvegarde
+en contient également les md5. Il faut donc réécrire de nouveau
+l'archive pour corriger ces hashs erronées :
+
+    $ sed 's/94baaad4d1347ec6e15ae35c88ee8bc8/e892ae55ad52778b553dbcbc8d9a7c46/'  svn_sans-mdp.dump >  svn_sans-mdp_md5.dump
+
+Plutôt que de laisser svnadmin calculé le nouveau md5, il est également
+possible de le faire à la main en parcourant le fichier de sauvegarde.
+
+Une fois cette manipulation faite, nous pouvons supprimer le répertoire
+svn temporaire :
+
+    $ rm -rf tmp_svn
+
+Re-créer le svn
+---------------
+
+Il est maintenant possible de recréer notre svn :
+
+    $ mv /chemin/vers/svn /chemin/vers/svn.old
+    $ svnadmin create /chemin/vers/svn
+    $ svnadmin load /chemin/vers/svn < svn_sans-mdp_md5.dump
+
+Votre nouveau svn est maintenant nettoyé de l'information
+confidentielle.
+
+Si celle-ci est répétée plusieurs fois, il faudra répéter
+l'avant-dernière étape pour changer le md5 de tous les fichiers
+incriminés. Cette étape peut s'automatiser assez facilement.
+
+Automatiser la correction des hash
+----------------------------------
+
+Voici un script qui permet d'automatiser la modification des hashs :
+
+    while ! svnadmin load tmp_svn < civa.svn.dump  2> /tmp/log ;
+    do
+    rm -rf tmp_svn
+    mkdir tmp_svn
+    svnadmin create tmp_svn
+    EXPECTED=$(grep expected /tmp/log | sed 's/.*: *//')
+    ACTUAL=$(grep actual /tmp/log | sed 's/.*: *//')
+    sed "s/$EXPECTED/$ACTUAL/"  civa.svn.dump >  civa.svn.dump.tmp
+    mv civa.svn.dump.tmp civa.svn.dump
+    done

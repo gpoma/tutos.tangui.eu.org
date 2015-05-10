@@ -1,0 +1,32 @@
+---
+layout: post
+title:  "D&#039;où vient l&#039;erreur &quot;403 Forbidden&quot; d&#039;apache ?"
+date:   2008-05-29 10:53:00
+---
+### Contexte
+
+En interrogeant une url, apache renvoie une erreur *403 Forbidden*.
+
+### Résolution
+
+Regarder la fin du fichier d'erreur d'apache grâce à la commande *tail*.
+Par défaut, le fichier d'erreurs se trouve dans
+*/var/log/apache2/error.log* sous Debian ou Ubuntu et dans
+*/var/log/httpd/error\_log* sous Redhat & co.
+
+    user@machine:~ $ tail /var/log/apache2/error.log
+    [...]
+    [Thu May 29 12:43:45 2008] [error] [client XXX.XXX.XXX.XXX] File does not exist: /var/www/...
+    [Thu May 29 07:11:08 2008] [error] [client XXX.XXX.XXX.XXX] Directory index forbidden by Options directive: /var/www/...
+
+L'une des dernières lignes devrait expliquer l'erreur 403 par l'un des
+messages suivante :
+
+-   [Directory index
+    forbidden](/6-apache-erreur-403-directory-index-forbidden)
+-   [Permission denied](/7-erreur-403-dapache-permission-denied)
+-   [Client denied by server
+    configuration](/9-erreur-403-dapache-client-denied-server-configuration)
+
+Pour résoudre l'une de ces erreurs, cliquer sur le lien correspondant.
+
