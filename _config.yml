@@ -6,7 +6,8 @@ baseurl: ""
 url: "http://tutos.tangui.eu.org/"
 twitter_username: teymour
 github_username:  teymour
-include: [.htaccess]
+include: [".htaccess"]
+exclude: ["Makefile", "bin", "LICENSE"]
 
 # Build settings
 markdown: kramdown
