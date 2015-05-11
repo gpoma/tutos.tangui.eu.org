@@ -2,7 +2,7 @@
 layout: post
 title:  "Rechercher dans un xml avec xmlstarlet"
 date:   2008-07-17 22:38:00
-aliases: [ node/23",  23-.*"]
+aliases: [ node/23,  23-.*]
 ---
 *xmlstarlet* est un outil libre qui permet de rechercher des
 informations dans un fchier xml. Voici un example d'utilisation.

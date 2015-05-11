@@ -2,7 +2,7 @@
 layout: post
 title:  "Nagios is currently not checking for external commands"
 date:   2008-07-15 13:53:00
-aliases: [ node/22",  22-.*"]
+aliases: [ node/22,  22-.*]
 ---
 ### Contexte
 

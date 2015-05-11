@@ -2,7 +2,7 @@
 layout: post
 title:  "Supprimer un répertoire de l&#039;historique d&#039;un svn"
 date:   2011-01-21 13:40:00
-aliases: [ node/41",  41-.*"]
+aliases: [ node/41,  41-.*]
 ---
 Pour supprimer un répertoire de l'historique, il existe la commande
 **svndumpfilter**.
