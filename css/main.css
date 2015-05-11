@@ -146,6 +146,8 @@ a:visited { color: #205caa; }
 
 .home h1 { margin-bottom: 25px; }
 
+.home .posts {margin-left: 30px; }
+
 .posts { list-style-type: none; }
 
 .posts li { margin-bottom: 30px; }
