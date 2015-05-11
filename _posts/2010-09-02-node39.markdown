@@ -2,6 +2,7 @@
 layout: post
 title:  "Comment annuler un commit sur svn ?"
 date:   2010-09-02 17:32:00
+aliases: ["/node/39", "/39-.*"]
 ---
 Il n'est rare de faire des commits malheureux et nous nous en apercevons
 toujours quelques secondes après avoir commité. Il est possible de

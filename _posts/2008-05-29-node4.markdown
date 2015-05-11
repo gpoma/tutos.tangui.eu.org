@@ -2,6 +2,7 @@
 layout: post
 title:  "Recréer un utilisateur drupal supprimé"
 date:   2008-05-29 00:21:00
+aliases: ["/node/4", "/4-.*"]
 ---
 ### Contexte
 
@@ -17,11 +18,11 @@ base de donnée drupal. Une seule ligne devrait apparaître correspondant
 Cliquer sur *Insérer* ;
 
 Remplir les champs suivants :
- *uid* : 0\
- *name* : login de l'utilisateur\
- *pass* : db5cbbea76939d6414be73681f16277d\
- *mail* : email associé à l'utilisateur\
- *status* : 1\
+ *uid* : 0
+ *name* : login de l'utilisateur
+ *pass* : db5cbbea76939d6414be73681f16277d
+ *mail* : email associé à l'utilisateur
+ *status* : 1
  Tous les autres champs du formulaire peuvent être laissés à leur valeur
 par défault ;
 

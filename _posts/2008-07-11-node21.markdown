@@ -2,6 +2,7 @@
 layout: post
 title:  "Faire une video à partir d&#039;une série d&#039;images"
 date:   2008-07-11 12:16:00
+aliases: ["/node/21", "/21-.*"]
 ---
 ### Contexte
 
@@ -30,6 +31,6 @@ La ligne suivant convertit les images au nom normalisé en vidéo :
 
     ffmpeg -r 2 -b 1800 -i %05d.jpg video.mp4
 
-L'option -r indique le nombre d'image par seconde de la vidéo.\
+L'option -r indique le nombre d'image par seconde de la vidéo.
  L'option -b indique la qualité de la vidéo (en octet par seconde)
 

@@ -2,6 +2,7 @@
 layout: post
 title:  "Migrer le nom de domaine utilisé par un serveur de liste « Sympa »"
 date:   2010-08-18 18:52:00
+aliases: ["/node/37", "/37-.*"]
 ---
 Notre serveur de mailing list sympa utilise le domaine mondomaine.fr.
 Une décision politique nous oblige à le changer pour nouveaudomaine.org.
@@ -35,18 +36,18 @@ problèmes avec les configuration sympa importante, nous sophistiquons un
 peu la commande *mysqldump* afin que les INSERT ne soit pas trop
 nombreux dans une seule requete :
 
-    $ mysqldump -u sympa -pMOT_DE_PASSE_SYMPA --skip-opt \
-    --add-drop-table --add-locks --create-options --disable-keys \
+    $ mysqldump -u sympa -pMOT_DE_PASSE_SYMPA --skip-opt 
+    --add-drop-table --add-locks --create-options --disable-keys 
     --lock-tables --quick --set-charset > sympa.sql
 
 Nous allons grâce à *sed* pouvoir réécrire les domaines de la base :
 
-    $ sed 's/mondomaine.fr/nouveaudomaine.org/g' sympa.sql \
+    $ sed 's/mondomaine.fr/nouveaudomaine.org/g' sympa.sql 
      > nouveau_sympa.sql
 
 Nous sommes maintenant prêt à réinjecter les données modifiées en base :
 
-    $ mysql -u sympa -pMOT_DE_PASS_SYMPA \
+    $ mysql -u sympa -pMOT_DE_PASS_SYMPA 
     --default-character-set=utf8 < nouveau_sympa.sql
 
 Une fois réalisé, nous pouvons détruire les fichiers sql utilisés :
@@ -75,8 +76,8 @@ Si la migration de domaine touche également les abonnés de vos listes,
 vous allez devoir modifier ces adresses dans les fichiers de
 configuration dédiés aux listes :
 
-    $ for conf in $(find expl -name config); do \
-    sed 's/mondomaine.fr/nouveaudomaine.org/' $conf > $conf.new ; \
+    $ for conf in $(find expl -name config); do 
+    sed 's/mondomaine.fr/nouveaudomaine.org/' $conf > $conf.new ; 
     mv $conf.new $conf; done
 
 Reconfigurer les alias mails
@@ -93,7 +94,7 @@ configuration des alias sympa est /etc/postfix/sympa\_aliases
 Nous allons donc réécrire automatiquement les adresses emails utilisées
 par sympa avec les deux domandes suivantes :
 
-    $ sed 's/mondomaine\.fr/nouveaudomaine.org/g' /etc/postfix/sympa_aliases \
+    $ sed 's/mondomaine\.fr/nouveaudomaine.org/g' /etc/postfix/sympa_aliases 
     > /etc/postfix/sympa_aliases.new
     $ mv /etc/postfix/sympa_aliases.new /etc/postfix/sympa_aliases
 

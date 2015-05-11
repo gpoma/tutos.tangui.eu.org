@@ -2,10 +2,11 @@
 layout: post
 title:  "Apache Erreur 403 : Directory index forbidden"
 date:   2008-05-29 12:44:00
+aliases: ["/node/6", "/6-.*"]
 ---
 ### Contexte
 
-En interrogeant une url, apache retourne une erreur "*403 forbidden*" ;\
+En interrogeant une url, apache retourne une erreur "*403 forbidden*" ;
  En regardant à la fin du fichier log d'erreur, on trouve une erreur
 "Directory index forbidden" :
 
@@ -22,7 +23,7 @@ D'autres raisons d'erreur 403 sont expliquées dans le post :
 Deux possibilités pour résoudre cette erreur :
 
 **Créer une fichier d'index** (*index.html*) dans le repertoire
-incriminé (dans notre exemple */var/www/repertoire*)\
+incriminé (dans notre exemple */var/www/repertoire*)
 
     user@machine: ~ $ cd /var/www/repertoire
     user@machine:repertoire $ nano index.html

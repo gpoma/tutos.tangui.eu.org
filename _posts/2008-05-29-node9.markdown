@@ -2,10 +2,11 @@
 layout: post
 title:  "Erreur 403 d&#039;apache : Client denied by server configuration"
 date:   2008-05-29 16:56:00
+aliases: ["/node/9", "/9-.*"]
 ---
 ### Contexte
 
-En interrogeant une url, apache retourne une erreur "*403 forbidden*" ;\
+En interrogeant une url, apache retourne une erreur "*403 forbidden*" ;
  Une erreur "*Client denied by server configuration*" est loguée à la
 fin du fichier d'erreur :
 

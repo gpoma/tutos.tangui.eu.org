@@ -2,6 +2,7 @@
 layout: post
 title:  "Installer heartbeat sous une redhat 5"
 date:   2009-02-06 18:46:00
+aliases: ["/node/35", "/35-.*"]
 ---
 Heartbeat est un outil bien pratique pour faire de la haute
 disponibilité. Malheureusement il n'est pas inclu dans une redhat 5.

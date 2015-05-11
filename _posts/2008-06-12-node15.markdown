@@ -2,6 +2,7 @@
 layout: post
 title:  "Réparer une table innodb corrompue sous mysql"
 date:   2008-06-12 22:25:00
+aliases: ["/node/15", "/15-.*"]
 ---
 Alors que les bases MyISAM possèdent des commandes sql permettant de
 réparer à chaud des tables corrompues (*REPAIR TABLE ...*), innoDB ne le
@@ -41,13 +42,13 @@ TABLE* :
 La dernière ne rend pas la main, il faut donc exécuter les commandes
 suivantes sur un autre terminal.
 
-**Sauvegarder la base**\
+**Sauvegarder la base**
 
     user@machine:~$ mysqldump -u root -p MA_BASE > MA_BASE.dump
     password:
     user@machine:~$
 
-**Supprimer et recréer la base**\
+**Supprimer et recréer la base**
 
     user@machine:~$ mysql -u root -p 
     password:
@@ -56,14 +57,14 @@ suivantes sur un autre terminal.
     mysql > CREATE DATABASE MA_BASE;
     Query OK, 1 row affected (0.00 sec)
 
-**Relancer mysql en mode normal**\
+**Relancer mysql en mode normal**
 
     user@machine:~$ sudo /etc/init.d/mysql restart
      * Stopping MySQL database server mysqld          [ OK ] 
      * Starting MySQL database server mysqld          [ OK ] 
     user@machine:~$
 
-**Réimporter votre base**\
+**Réimporter votre base**
 
     user@machine:~$ mysql -u root -p  MA_BASE < MA_BASE.dump
     password:

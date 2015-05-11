@@ -2,6 +2,7 @@
 layout: post
 title:  "Comment reconfigurer cpan ?"
 date:   2008-12-08 14:44:00
+aliases: ["/node/32", "/32-.*"]
 ---
 Sur de vieilles distributions, l'installation de paquets perl sont
 parfois plus faciles à réaliser via l'outil CPAN. Encore faut-il qu'il

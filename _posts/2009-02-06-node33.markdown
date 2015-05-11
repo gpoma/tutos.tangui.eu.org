@@ -2,6 +2,7 @@
 layout: post
 title:  "Créer une partition chiffrée avec cryptsetup"
 date:   2009-02-06 15:06:00
+aliases: ["/node/33", "/33-.*"]
 ---
 Voici comment « crypter » une partition en utilisant la spécification
 LUKS (*Linux Unified Key Setup*). Il existe également des outils
@@ -44,7 +45,7 @@ depuis la commande suivante :
     Verify passphrase: 
     Command successful.
 
-Une confirmation est demandée. Il faut inscrire YES en majuscule.\
+Une confirmation est demandée. Il faut inscrire YES en majuscule.
  Avant d'être créée, l'outil demande une passphrase de chiffrement
 (équivalent à un mot de passe).
 
@@ -58,7 +59,7 @@ d'exploitation, on utilise de nouveau cryptsetup :
     key slot 0 unlocked.
     Command successful.
 
-Votre passphrase est demandée\
+Votre passphrase est demandée
  Le conteneur est maintenant accessible depuis le périphérique virtuel
 /dev/mapper/**usb**.
 

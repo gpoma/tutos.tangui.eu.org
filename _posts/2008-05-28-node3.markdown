@@ -2,6 +2,7 @@
 layout: post
 title:  "Lier un squid avec un autre proxy"
 date:   2008-05-28 23:49:00
+aliases: ["/node/3", "/3-.*"]
 ---
 ### Contexte
 
@@ -20,11 +21,11 @@ Editer le fichier de configuration de squid (*/etc/squid/squid.conf* ou
     [...]
 
 *192.168.1.2* est l'adresse ip du proxy père (qui fournit l'accès à
-internet)\
- *8080* est le port de communication avec le proxy\
- *0* est une valeur aléatoire pour le port *icp*\
+internet)
+ *8080* est le port de communication avec le proxy
+ *0* est une valeur aléatoire pour le port *icp*
  *proxy-only* indique que notre proxy local ne concerve pas les pages
-localement mais les demande au proxy père à chaque requête\
+localement mais les demande au proxy père à chaque requête
  *no-query* indique qu'on utilise pas le protocole de dialogue inter
 proxy icp (pour *Internet Cache Protocol*)
 

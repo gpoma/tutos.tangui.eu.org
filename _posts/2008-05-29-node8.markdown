@@ -2,6 +2,7 @@
 layout: post
 title:  "Augmenter la taille des messages sous postfix"
 date:   2008-05-29 16:15:00
+aliases: ["/node/8", "/8-.*"]
 ---
 ### Contexte
 

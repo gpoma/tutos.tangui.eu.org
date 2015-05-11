@@ -2,10 +2,11 @@
 layout: post
 title:  "Corriger les problemes d&#039;encodage sous newsportal"
 date:   2008-07-21 16:43:00
+aliases: ["/node/26", "/26-.*"]
 ---
 ### Contexte
 
-\
+
  Sous certaines installations d'apache, newsportal affiche des
 caractères étranges au lieu des caractères accentués. Voici comment
 résoudre ce problème.

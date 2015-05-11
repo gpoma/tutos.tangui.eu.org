@@ -2,6 +2,7 @@
 layout: post
 title:  "Créer un dégradé transparent sous gimp"
 date:   2008-06-19 15:27:00
+aliases: ["/node/17", "/17-.*"]
 ---
 ### Contexte
 

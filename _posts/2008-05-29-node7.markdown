@@ -2,10 +2,11 @@
 layout: post
 title:  "Erreur 403 d&#039;apache : Permission denied"
 date:   2008-05-29 13:02:00
+aliases: ["/node/7", "/7-.*"]
 ---
 ### Contexte
 
-En interrogeant une url, apache retourne une erreur "*403 forbidden*" ;\
+En interrogeant une url, apache retourne une erreur "*403 forbidden*" ;
  Une erreur "*Permission denied*" est loguée à la fin du fichier
 d'erreur :
 
@@ -31,12 +32,12 @@ les répertoires parents.
     user@machine:~ $ ls -ld /var/www
     drwxr-xr-x 15 root root 4096 jan 28 01:05 /var/www
     user@machine:~ $ ls -ld /var/www/repertoire
-    drwxr-x--- 15 root root 4096 jan 28 01:05 /var/www/repertoire  Pb de droits !!
+    drwxr-x--- 15 root root 4096 jan 28 01:05 /var/www/repertoire  <-- Pb de droits !!
     user@machine:~ $ chmod a+rX /var/www/repertoire
     user@machine:~ $ ls -ld /var/www/repertoire
     drwxr-xr-x 15 root root 4096 jan 28 01:05 /var/www/repertoire
     user@machine:~ $ ls -ld /var/www/repertoire/document.html
-    drw-r----- 15 root root 4096 jan 28 01:05 /var/www/repertoire/document.html     Pb de droits !!
+    drw-r----- 15 root root 4096 jan 28 01:05 /var/www/repertoire/document.html     <-- Pb de droits !!
     user@machine:~ $ chmod a+r /var/www/repertoire/document.html
     user@machine:~ $ ls -ld /var/www/repertoire/document.html
     drw-r--r-- 15 root root 4096 jan 28 01:05 /var/www/repertoire/document.html
