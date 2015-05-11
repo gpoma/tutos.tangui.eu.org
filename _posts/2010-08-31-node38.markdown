@@ -13,8 +13,8 @@ Pour se faire, deux solutions :
 Tronquer les lignes trop longues
 --------------------------------
 
-    cat fichier.txt | awk '{str="";if (length($0)>150) sub="..."; 
-    print substr($0,0,150) sub ; }'
+    cat fichier.txt | awk '{str="";if (length($0)>150) str="..."; \
+    print substr($0,0,150) str ; }'
 
 [source](http://unstableme.blogspot.com/2009/09/truncate-string-using-bash-script.html)
 
