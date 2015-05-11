@@ -1,0 +1,147 @@
+DirectoryIndex index.html
+
+RewriteEngine On
+RewriteBase /
+
+
+RewriteRule ^/node/41 /2011/01/21/node41/ [R=301,L]
+
+RewriteRule ^/41-.* /2011/01/21/node41/ [R=301,L]
+
+RewriteRule ^/node/40 /2010/09/20/node40/ [R=301,L]
+
+RewriteRule ^/40-.* /2010/09/20/node40/ [R=301,L]
+
+RewriteRule ^/node/39 /2010/09/02/node39/ [R=301,L]
+
+RewriteRule ^/39-.* /2010/09/02/node39/ [R=301,L]
+
+RewriteRule ^/node/38 /2010/08/31/node38/ [R=301,L]
+
+RewriteRule ^/38-.* /2010/08/31/node38/ [R=301,L]
+
+RewriteRule ^/node/37 /2010/08/18/node37/ [R=301,L]
+
+RewriteRule ^/37-.* /2010/08/18/node37/ [R=301,L]
+
+RewriteRule ^/node/36 /2010/08/17/node36/ [R=301,L]
+
+RewriteRule ^/36-.* /2010/08/17/node36/ [R=301,L]
+
+RewriteRule ^/node/35 /2009/02/06/node35/ [R=301,L]
+
+RewriteRule ^/35-.* /2009/02/06/node35/ [R=301,L]
+
+RewriteRule ^/node/34 /2009/02/06/node34/ [R=301,L]
+
+RewriteRule ^/34-.* /2009/02/06/node34/ [R=301,L]
+
+RewriteRule ^/node/33 /2009/02/06/node33/ [R=301,L]
+
+RewriteRule ^/33-.* /2009/02/06/node33/ [R=301,L]
+
+RewriteRule ^/node/32 /2008/12/08/node32/ [R=301,L]
+
+RewriteRule ^/32-.* /2008/12/08/node32/ [R=301,L]
+
+RewriteRule ^/node/31 /2008/07/31/node31/ [R=301,L]
+
+RewriteRule ^/31-.* /2008/07/31/node31/ [R=301,L]
+
+RewriteRule ^/node/29 /2008/07/24/node29/ [R=301,L]
+
+RewriteRule ^/29-.* /2008/07/24/node29/ [R=301,L]
+
+RewriteRule ^/node/28 /2008/07/24/node28/ [R=301,L]
+
+RewriteRule ^/28-.* /2008/07/24/node28/ [R=301,L]
+
+RewriteRule ^/node/27 /2008/07/22/node27/ [R=301,L]
+
+RewriteRule ^/27-.* /2008/07/22/node27/ [R=301,L]
+
+RewriteRule ^/node/26 /2008/07/21/node26/ [R=301,L]
+
+RewriteRule ^/26-.* /2008/07/21/node26/ [R=301,L]
+
+RewriteRule ^/node/25 /2008/07/21/node25/ [R=301,L]
+
+RewriteRule ^/25-.* /2008/07/21/node25/ [R=301,L]
+
+RewriteRule ^/node/24 /2008/07/21/node24/ [R=301,L]
+
+RewriteRule ^/24-.* /2008/07/21/node24/ [R=301,L]
+
+RewriteRule ^/node/23 /2008/07/18/node23/ [R=301,L]
+
+RewriteRule ^/23-.* /2008/07/18/node23/ [R=301,L]
+
+RewriteRule ^/node/22 /2008/07/15/node22/ [R=301,L]
+
+RewriteRule ^/22-.* /2008/07/15/node22/ [R=301,L]
+
+RewriteRule ^/node/21 /2008/07/11/node21/ [R=301,L]
+
+RewriteRule ^/21-.* /2008/07/11/node21/ [R=301,L]
+
+RewriteRule ^/node/17 /2008/06/19/node17/ [R=301,L]
+
+RewriteRule ^/17-.* /2008/06/19/node17/ [R=301,L]
+
+RewriteRule ^/node/16 /2008/06/19/node16/ [R=301,L]
+
+RewriteRule ^/16-.* /2008/06/19/node16/ [R=301,L]
+
+RewriteRule ^/node/15 /2008/06/13/node15/ [R=301,L]
+
+RewriteRule ^/15-.* /2008/06/13/node15/ [R=301,L]
+
+RewriteRule ^/node/13 /2008/06/03/node13/ [R=301,L]
+
+RewriteRule ^/13-.* /2008/06/03/node13/ [R=301,L]
+
+RewriteRule ^/node/12 /2008/06/02/node12/ [R=301,L]
+
+RewriteRule ^/12-.* /2008/06/02/node12/ [R=301,L]
+
+RewriteRule ^/node/11 /2008/06/02/node11/ [R=301,L]
+
+RewriteRule ^/11-.* /2008/06/02/node11/ [R=301,L]
+
+RewriteRule ^/node/10 /2008/05/30/node10/ [R=301,L]
+
+RewriteRule ^/10-.* /2008/05/30/node10/ [R=301,L]
+
+RewriteRule ^/node/9 /2008/05/29/node9/ [R=301,L]
+
+RewriteRule ^/9-.* /2008/05/29/node9/ [R=301,L]
+
+RewriteRule ^/node/8 /2008/05/29/node8/ [R=301,L]
+
+RewriteRule ^/8-.* /2008/05/29/node8/ [R=301,L]
+
+RewriteRule ^/node/7 /2008/05/29/node7/ [R=301,L]
+
+RewriteRule ^/7-.* /2008/05/29/node7/ [R=301,L]
+
+RewriteRule ^/node/6 /2008/05/29/node6/ [R=301,L]
+
+RewriteRule ^/6-.* /2008/05/29/node6/ [R=301,L]
+
+RewriteRule ^/node/5 /2008/05/29/node5/ [R=301,L]
+
+RewriteRule ^/5-.* /2008/05/29/node5/ [R=301,L]
+
+RewriteRule ^/node/4 /2008/05/29/node4/ [R=301,L]
+
+RewriteRule ^/4-.* /2008/05/29/node4/ [R=301,L]
+
+RewriteRule ^/node/3 /2008/05/29/node3/ [R=301,L]
+
+RewriteRule ^/3-.* /2008/05/29/node3/ [R=301,L]
+
+RewriteRule ^/node/2 /2006/12/11/node2/ [R=301,L]
+
+RewriteRule ^/2-.* /2006/12/11/node2/ [R=301,L]
+
+
