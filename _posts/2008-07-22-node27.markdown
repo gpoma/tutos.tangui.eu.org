@@ -2,7 +2,7 @@
 layout: post
 title:  "Résoudre l&#039;erreur &quot;preprocessor /lib/cpp fails sanity check&quot; d&#039;un ./configure"
 date:   2008-07-22 13:21:00
-aliases: ["/node/27", "/27-.*"]
+aliases: [ node/27",  27-.*"]
 ---
 ### Contexte
 

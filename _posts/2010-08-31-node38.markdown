@@ -2,7 +2,7 @@
 layout: post
 title:  "En shell, comment limiter la largeur des lignes d&#039;un fichier texte ?"
 date:   2010-08-31 10:20:00
-aliases: ["/node/38", "/38-.*"]
+aliases: [ node/38",  38-.*"]
 ---
 Imaginons un fichier texte (*fichier.txt*) dont le nombre de caractères
 par ligne est important. Nous souhaitons l'afficher (ou l'envoyer par

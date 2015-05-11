@@ -2,7 +2,7 @@
 layout: post
 title:  "Migration SVN : comment supprimer des infos confidentielles ?"
 date:   2010-08-16 22:49:00
-aliases: ["/node/36", "/36-.*"]
+aliases: [ node/36",  36-.*"]
 ---
 Il peut arriver de *commiter* par erreur une information confidentielle
 dans un svn qui est public (mot de passe, clé secrète, ...). L'atout du

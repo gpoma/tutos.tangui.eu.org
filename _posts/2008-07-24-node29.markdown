@@ -2,7 +2,7 @@
 layout: post
 title:  "Remplacer la fonction php 5 hash_hmac"
 date:   2008-07-24 16:25:00
-aliases: ["/node/29", "/29-.*"]
+aliases: [ node/29",  29-.*"]
 ---
 ### Contexte
 

@@ -2,7 +2,7 @@
 layout: post
 title:  "Recréer un utilisateur drupal supprimé"
 date:   2008-05-29 00:21:00
-aliases: ["/node/4", "/4-.*"]
+aliases: [ node/4",  4-.*"]
 ---
 ### Contexte
 

@@ -2,7 +2,7 @@
 layout: post
 title:  "Faire une video à partir d&#039;une série d&#039;images"
 date:   2008-07-11 12:16:00
-aliases: ["/node/21", "/21-.*"]
+aliases: [ node/21",  21-.*"]
 ---
 ### Contexte
 

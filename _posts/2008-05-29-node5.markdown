@@ -2,7 +2,7 @@
 layout: post
 title:  "D&#039;où vient l&#039;erreur &quot;403 Forbidden&quot; d&#039;apache ?"
 date:   2008-05-29 10:53:00
-aliases: ["/node/5", "/5-.*"]
+aliases: [ node/5",  5-.*"]
 ---
 ### Contexte
 

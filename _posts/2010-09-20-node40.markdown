@@ -2,7 +2,7 @@
 layout: post
 title:  "Comment réduire une partition root LVM ?"
 date:   2010-09-20 15:49:00
-aliases: ["/node/40", "/40-.*"]
+aliases: [ node/40",  40-.*"]
 ---
 LVM n'est pas toujours bien configuré à l'installation d'une machine
 (c'est en tout cas le cas dans certaines grandes institutions

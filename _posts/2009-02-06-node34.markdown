@@ -2,7 +2,7 @@
 layout: post
 title:  "Comment avoir une redhat 5 maintenable et à jour (utilisez dag et epel !)"
 date:   2009-02-06 18:15:00
-aliases: ["/node/34", "/34-.*"]
+aliases: [ node/34",  34-.*"]
 ---
 Administrer une redhat c'est toujours très chi\*%\\!§t et vraiment très
 limitant : les dépendances sont difficiles à résoudre, les packets

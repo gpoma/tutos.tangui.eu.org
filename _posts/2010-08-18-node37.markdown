@@ -2,7 +2,7 @@
 layout: post
 title:  "Migrer le nom de domaine utilisé par un serveur de liste « Sympa »"
 date:   2010-08-18 18:52:00
-aliases: ["/node/37", "/37-.*"]
+aliases: [ node/37",  37-.*"]
 ---
 Notre serveur de mailing list sympa utilise le domaine mondomaine.fr.
 Une décision politique nous oblige à le changer pour nouveaudomaine.org.

@@ -2,7 +2,7 @@
 layout: post
 title:  "Encoder une video en ogg théora"
 date:   2008-06-02 00:04:00
-aliases: ["/node/11", "/11-.*"]
+aliases: [ node/11",  11-.*"]
 ---
 L'outil permettant d'encoder une video en ogg théora est
 [ffmpeg2theora](). Une fois installé, il suffit de lui passer en
