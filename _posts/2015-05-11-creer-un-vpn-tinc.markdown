@@ -62,7 +62,7 @@ A la suite de cette procédure, nous avons donc deux nouveau fichiers :
 
 ###Ajout des informations liés au *host*
 
-Le fichier contenant la clé publique a vocation à être présent sur tous les noeuds qui souhaitent se connecter au serveur. Nous allons donc y ajouter les informations nécessaires permettant ces connexion. Voici ce qu'il devrait contenir :
+Le fichier contenant la clé publique a vocation à être présent sur tous les noeuds qui souhaitent se connecter au serveur. Nous allons donc y ajouter les informations nécessaires permettant ces connexions. Voici ce qu'il devrait contenir :
 
     #Activation de la compression
     Compression=9
@@ -80,7 +80,7 @@ NB: N'oubliez pas de changer **MON_ADRESSE_PUBLIQUE** par l'adresse IP du serveu
 
 ###Configuration de la couche réseau
 
-Dernière étapage, il faut attribuer une adresse IP privée à notre noeud serveur (son adresse au sein du VPN). Pour se faire, on utilise un script shell qui est lancé par Tinc à la fin de son initialisation. Ce script doit d'appeler *tinc-up*. Nous créons donc un ficheir dans */etc/tinc/mon_reseau/tinc-up* qui contient les éléments suivants :
+Dernière étape, il faut attribuer une adresse IP privée à notre noeud serveur (son adresse au sein du VPN). Pour se faire, on utilise un script shell qui est lancé par Tinc à la fin de son initialisation. Ce script doit d'appeler *tinc-up*. Nous créons donc un ficheir dans */etc/tinc/mon_reseau/tinc-up* qui contient les éléments suivants :
 
     #!/bin/bash
     
@@ -94,11 +94,11 @@ Comme ce fichier est un script shell qui sera executé par tinc, il faut lui don
 
 ###Lancement de tinc pour notre réseau
 
-C'est bon nous sommes prets : nous avons une configuration du serveur, déclaré un *host* qui a une clé publique et une clé privée et un script de démarrage du réseau. Nous pouvons donc lancer tinc grace à la commande suivante :
+C'est boni ! Nous sommes prets : nous avons une configuration du serveur, déclaré un *host* qui a une clé publique et une clé privée et un script de démarrage du réseau. Nous pouvons donc lancer tinc grace à la commande suivante :
 
     user@serveur:~$ sudo tincd -n mon_reseau
 
-NB: si vous avez choisi un autre nom de réseau que *mon_reseau* utilisez le ;-)
+NB: si vous avez choisi un autre nom de réseau que *mon_reseau*, utilisez le ;-)
 
 Maintenant, nous avons une nouvelle interface réseau :
 
@@ -115,7 +115,7 @@ Maintenant, nous avons une nouvelle interface réseau :
                 inet addr:127.0.0.1  Mask:255.0.0.0
                 inet6 addr: ::1/128 Scope:Host
 
-###S'assurer que le serveur peut être contacter
+###S'assurer que le serveur peut être contacté
 
 Pour recevoir les demandes de connexion des noeuds "clients", il faut s'assurer que le serveur peut être contacté sur le port choisi en TCP et UDP (par défaut et dans notre exemple 655). Si ce n'est pas le cas, et que votre parefeux est iptables, voici les commandes permettant d'y parvenir :
 
@@ -128,7 +128,7 @@ Pour que tinc fonctionne sur un noeud client, il doit installé :
 
      user@client:~$ sudo apt-get install tinc
 
-Et un répertoire pour le réseau VPN mon_reseau doit être créé :
+Et un répertoire pour le réseau VPN *mon_reseau* doit être créé :
 
      user@client:~$ sudo mkdir /etc/tinc/mon_reseau
 
@@ -146,9 +146,9 @@ Comme pour le serveur, un fichier de configuration *tinc.conf* doit être créé
     #Clé privée de la machine sur le réseau VPN
     PrivateKeyFile=/etc/tinc/mon_reseau/rsa_key.priv
 
-NB: L'identification de mon noeud client ici sera mon_premier_client. N'hésitez pas à le changer.
+NB: L'identification de mon noeud client ici sera *mon_premier_client*. N'hésitez pas à le changer.
 
-Seul la directive *Port* n'est pas obligatoire.
+Seul la directive *Port* n'est pas obligatoire, et la directive *Name* a été changée pour indiquer le nom choisi pour cette machine.
 
 ###Génération d'un fichier host et d'une clé privée
 
@@ -156,7 +156,7 @@ Pour générer la paire de clé qui permettra au serveur de nous reconnaitre, il
 
     user@serveur:~$ sudo tincd -n mon_reseau -K
 
-On a à l'issue de cette procédure, deux nouveaux fichiers */etc/tinc/mon_reseau/rsa_key.priv* et */etc/tinc/mon_reseau/hosts/mon_premier_client*
+On a, à l'issue de cette procédure, deux nouveaux fichiers */etc/tinc/mon_reseau/rsa_key.priv* et */etc/tinc/mon_reseau/hosts/mon_premier_client*
 
 ###Création du fichier de configuration réseau
 
@@ -166,13 +166,13 @@ Comme pour le serveur, il faut créer un script d'initialisation de notre nouvel
 
     iptables $INTERFACE 10.0.0.2 netmask 255.255.255.0
 
-NB: L'IP VPN du client sera ici *10.0.0.2*. Choisissez la en accord avec celle choisie pour le serveur.
+NB: L'IP VPN du client sera ici *10.0.0.2*. Choisissez la en accord avec celle retenue pour le serveur.
 
 ###Autentification du serveur et du client
 
-L'autentification des différents noeuds se font par le mécanisme de clé privée et de clé publique. Il faut donc déposer les fichiers hosts du serveur et du client dans leur répertoire *hosts* respectif. Vous pouvez soit les transférer par *scp* ou *rsync*, soit en copier/coller le contenu.
+L'autentification des différents noeuds se font par le mécanisme de clé privée et de clé publique. Il faut donc déposer les fichiers *hosts* du serveur et du client dans leur répertoire *hosts* respectif. Vous pouvez soit les transférer par *scp* ou *rsync*, soit en copier/coller le contenu.
 
-A l'issue de cette procédure; vous devrez donc avoir sur le serveur :
+A l'issue de cette procédure, vous devrez donc avoir sur le serveur :
 
     user@serveur:~$ cat /etc/tinc/mon_reseau/hosts/mon_premier_client
     -----BEGIN RSA PUBLIC KEY-----
@@ -239,7 +239,7 @@ Et inversement :
     PING 10.0.0.2 (10.0.0.1) 56(84) bytes of data.
     64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=0.051 ms
 
-##Arreter tinc
+##Arrêter tinc
 
 Pour arrêté le démon tinc sur l'un des noeuds :
 
@@ -260,7 +260,7 @@ Si tinc ne fonctionne, vous pouvez le lancer en mode non démon :
 
     user@client:~$ tincd -n mon_reseau -d3 -D
 
-Pour l'arreter, mettez la tache en sommeil grace à *CRTL* + *Z*, executer la commande d'arrêt de tinc :
+Pour l'arrêter, mettez la tache en sommeil grace à *CRTL* + *Z*, executer la commande d'arrêt de tinc :
 
     user@client:~$ tincd -n mon_reseau -k
 
@@ -268,6 +268,6 @@ Puis réveillez la tache tinc :
 
     user@client:~$ fg
 
-Des logs sont également produit dans */var/log/deamon.log* pour les version récente de Debian. (Sinon */var/log/syslog*).
+Des logs sont également produits dans */var/log/deamon.log* pour les versions récentes de Debian. (Sinon */var/log/syslog*).
 
-*Merci à taziden qui m'a fait récouvrir tinc !*
+*Merci à taziden qui m'a fait découvrir tinc !*
