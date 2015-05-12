@@ -8,4 +8,4 @@ Je suis <a href="http://tangui.eu.org/">Tangui Morlier</a>. Je travaille dans le
 
 Si vous êtes intéressés par mon profil professionnel, vous pouvez consulter mon [CV](http://tangui.eu.org/old/cv/cv_francais.html) ou ma page [linkedin](https://www.linkedin.com/profile/view?id=6661161).
 
-Ce site a été généré par [jekyll](https://github.com/jekyll/jekyll)
+Ce site a été généré par [jekyll](https://github.com/jekyll/jekyll). Les icones RSS et Email sont issues de wikipedia, vous pouvez trouvez les fichiers originaux [ici](https://en.wikipedia.org/wiki/File:Feed-icon.svg) et [la](https://commons.wikimedia.org/wiki/File:Mail-closed.svg?uselang=fr).
