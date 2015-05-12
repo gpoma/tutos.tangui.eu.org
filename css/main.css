@@ -105,6 +105,10 @@ a:visited { color: #205caa; }
   width: calc(23.125% - 10px);
   margin-right: 10px
 }
+.footer-col-3 ul {
+    margin-left: 150px;
+}
+
 .footer-col-3 {
   width: 335px; /*fallback*/
   width: -webkit-calc(41.875%);
