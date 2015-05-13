@@ -256,11 +256,11 @@ Pour activer l'un des réseau tinc au démarrage d'un des noeuds, il faut l'ajou
 
 ##Débugger tinc
 
-Si tinc ne fonctionne, vous pouvez le lancer en mode non démon :
+Si tinc ne fonctionne pas, vous pouvez le lancer en mode non démon :
 
     user@client:~$ tincd -n mon_reseau -d3 -D
 
-Pour l'arrêter, mettez la tache en sommeil grace à *CRTL* + *Z*, executer la commande d'arrêt de tinc :
+Pour l'arrêter, mettez la tache en sommeil grace à *CRTL* + *Z*, puis executez la commande d'arrêt de tinc :
 
     user@client:~$ tincd -n mon_reseau -k
 
