@@ -88,7 +88,7 @@ Nous pouvons donc maintenant créer un subtree qui intégrera notre dépot exter
 
     $ git subtree add --prefix=plugin/theExternalLib  e5ffab7f5bef95c5af0fd3ba262c8331e61e0d12 --squash
 
-NB : remplacez *plugin/theExtranalLib* par le chemin où doit être intégrer le dépot externe et *e5ffab7f5bef95c5af0fd3ba262c8331e61e0d12* par le commit repérer plus tot.
+NB : remplacez *plugin/theExtranalLib* par le chemin où doit être intégrer le dépot externe et *e5ffab7f5bef95c5af0fd3ba262c8331e61e0d12* par le commit repéré plus tot.
 
 L'option *--squash* permet de ne pas intégrer tous les commits du dépot externe, ainsi votre dépot ne sera pas alourdi des commits de ce projet (et les contributeurs du projet n'apparaisseront pas comme contributeurs du votre).
 
