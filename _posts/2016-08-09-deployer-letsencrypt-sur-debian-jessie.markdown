@@ -160,7 +160,7 @@ La commande ``letsencrypt.sh`` avec l'option ``-c`` permet de lancer le processu
 
 Vos clés privées et publiques ainsi que votre certificat est maintenant disponible dans le répertoire ``/var/lib/letsencrypt.sh/certs/example.org/`` (où *example.org* est votre domaine principal).
 
-Référez vous à la section [Erreurs classiques](#Erreurs classiques) si l'execution de letsencrypt.sh se termine par une erreur que vous ne comprenez pas.
+Référez vous à la section [Erreurs classiques](#erreurs-classiques) si l'execution de letsencrypt.sh se termine par une erreur que vous ne comprenez pas.
 
 ## Utilisation des certificats dans Apache
 
