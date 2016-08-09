@@ -1,22 +1,22 @@
 ---
-title: Deployer letsencrypt sous Debian Jessie
+title: Deployer Let's Encrypt sous Debian Jessie
 date:  2016-08-09 14:00
 layout: post
 ---
 
-[Let's Encrypt](https://letsencrypt.org/) est projet qui permet de déployer des certificats https sans avoir recours à des autorités de certification payante. L'appel à un webservice du projet letsencrypt permet de vérifier l'authenticité de la demande et de certifier les clés liés à un nom de domaine.
+[Let's Encrypt](https://letsencrypt.org/) est projet qui permet de déployer des certificats https sans avoir recours à des autorités de certification payantes. L'appel à un webservice du projet *letsencrypt* permet de vérifier l'authenticité de la demande et de certifier les clés liés à un nom de domaine.
 
-Ce projet s'interconnecte donc avec le serveur HTTP sur lequel vous souhaiter déployer les certificats HTTPS afin de répondre positivement à ce dialogue d'authentification.
+Ce projet s'interconnecte donc avec le serveur HTTP sur lequel vous souhaitez déployer les certificats HTTPS afin de répondre positivement à ce dialogue d'authentification.
 
 Les certificats seront renouvelés automatiquement via une cron.
 
 ## Installer de dépot jessie-backport
 
-Les packets Debian ne sont pas disponibles de base pour Jessie mais Debian met à disposition ce packet via le dépot *jessie-backport*. Pour activer ce dépot, vous pouvez créer un fichier source.list pour apt dans le répertoire ``/etc/apt/sources.list.d/`` ayant comme nom par exemple ``backports.list`` avec le contenu :
+Les packets Debian ne sont pas disponibles de base pour Jessie mais Debian les met à disposition via le dépot *jessie-backport*. Pour activer ce dépot, vous pouvez créer un fichier source.list pour apt dans le répertoire ``/etc/apt/sources.list.d/`` ayant comme nom par exemple ``backports.list`` avec le contenu :
 
     deb http://ftp.us.debian.org/debian/ jessie-backports main
 
-Une fois ajouté, il faut mettre à jour apt avec la commande ``sudo aptitude update`` pour que le dépot soit intégrer dans votre instance apt.
+Une fois ajouté, il faut mettre à jour apt avec la commande ``sudo aptitude update`` pour que le dépot soit intégré dans votre instance apt.
 
 ## Installer les packets letsencrypt
 
@@ -41,7 +41,7 @@ Assurez vous que votre configuration https fonctionne correctement et notamment 
     host@host:~$ sudo a2ensite default-ssl.conf 
     Site default-ssl already enabled
 
-De même assurez-vous que le ou les domaines que vous comptez utiliser en https pointe bien sur votre machine. Si votre machine a comme adresse ip *10.10.10.10* et que vos domaines sont *example.org* et *www.example.org*, vous devirez avoir :
+De même assurez-vous que le ou les domaines que vous comptez utiliser en https pointe bien sur votre machine. Si votre machine a comme adresse ip *10.10.10.10* et que vos domaines sont *example.org* et *www.example.org*, vous devriez avoir :
 
     user@host: host example.org
     example.org has address 10.10.10.10
@@ -61,7 +61,7 @@ Du coup, ces domaines devraient répondre correctement aux requêtes https :
           * {
         margin: 0px 0px 0px 0px;
         padding: 0px 0px 0px 0px;
-     
+    
     user@host: curl -sk https://www.example.org/ | head
 
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -73,6 +73,8 @@ Du coup, ces domaines devraient répondre correctement aux requêtes https :
           * {
         margin: 0px 0px 0px 0px;
         padding: 0px 0px 0px 0px;
+
+On utilise l'option ``-k`` car le certificat par defaut sous Debian est un certificat autosigné, ce qui provoque une erreur lors de l'appel curl.
 
 De plus, vérifiez que la configuration liée au dialogue d'authentification a bien été pris en compte pour vos domaines :
 
@@ -89,7 +91,7 @@ De plus, vérifiez que la configuration liée au dialogue d'authentification a b
 
 L'erreur ``403`` est normale. En revanche si vous avez une ``404`` c'est que la configuration apache voulue par *letsencrypt.sh-apache2* n'est pas prise en compte. Peut être avez vous une directive *RewriteRule* qui bypasse la configuration de ``/etc/apache2/conf-enabled/letsencrypt.sh.conf``.
 
-Vérifiez bien que tous les domaines sur lesquels vous cherchez à utiliser https réponde par une 403.
+Vérifiez bien que tous les domaines sur lesquels vous cherchez à utiliser HTTPS réponde par une 403.
 
 ## Configuration de letsencrypt.sh
 
