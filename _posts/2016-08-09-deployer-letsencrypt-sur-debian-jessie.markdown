@@ -102,7 +102,7 @@ La configuration se letsencrypt.sh se passe en deux temps :
 
 ### Définition des domaines à utiliser
 
-Pour chaque certificat ssl dédié à https, vous allez devoir créer une ligne dans le fichier ``/var/lib/letsencrypt.sh/domains.txt``. Si un même applicatif http peut être servit depuis plusieurs domaines, vous pouvez créer un certificat pour tous les domaines concernés. Vous aurez donc une ligne par VirtualHost apache2 pour le port *:443 (et donc par ``ServerName`` concerné) et vous inscrirez les ``ServerAlias`` comme domaines secondaires.
+Pour chaque certificat ssl dédié à https, vous allez devoir créer une ligne dans le fichier ``/etc/letsencrypt.sh/domains.txt``(anciennement ``/var/lib/letsencrypt.sh/domains.txt``, cette destination est modifiable via la variable DOMAINS_TXT de ``config.sh``). Si un même applicatif http peut être servit depuis plusieurs domaines, vous pouvez créer un certificat pour tous les domaines concernés. Vous aurez donc une ligne par VirtualHost apache2 pour le port *:443 (et donc par ``ServerName`` concerné) et vous inscrirez les ``ServerAlias`` comme domaines secondaires.
 
 Si vous souhaitez créer un certificat pour *example.org* (le ``ServerName`` de votre ``VirtualHost *:443``) lié à un domaine secondaire *www.example.org* (le ``ServerAlias`` lié à *example.org*), votre fichier ``/var/lib/letsencrypt.sh/domains.txt`` contiendra donc la ligne suivante :
 
@@ -206,13 +206,15 @@ Vous pouvez maintenant recharger votre serveur apache qui servira maintenant vos
 Les certificats *Let's Encrypt* sont valables trois mois. Il convient donc de les renouveler régulièrement. La commande ``letsencrypt.sh`` le fera pour vous régulièrement. Il convient donc juste de l'inscrire dans une crontable, par exemple en créant le fichier ``/etc/cron.weekly/letsencrypt.sh`` avec le contenu suivant :
 
     #!/bin/bash
-    /usr/bin/letsencrypt -c
+    /usr/bin/letsencrypt.sh -c
 
 et en lui donnant les droits en execution :
 
-    user@host:~ $ sudo chmod +x /etc/cron.weekly/letsencrypt.sh
+    user@host:~ $ sudo chmod +x /etc/cron.weekly/letsencrypt_sh
 
-Maintenant, toutes les semaines, votre *letsencrypt.sh* renouvellera votre certificat si il expire dans les 30 prochains jours.
+Maintenant, toutes les semaines, votre *letsencrypt_sh* renouvellera votre certificat si il expire dans les 30 prochains jours.
+
+**Attention**, le fonctionnement de cron.weekly interdit l'usage du caractère . dans le nom des fichiers à executer. Pour cette raison le nom du script ne porte pas le nom du projet mais s'appelle ``letencrypt_sh``.
 
 ## Erreurs classiques
 
