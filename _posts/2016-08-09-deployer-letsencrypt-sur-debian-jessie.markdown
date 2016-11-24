@@ -203,7 +203,7 @@ Vous pouvez maintenant recharger votre serveur apache qui servira maintenant vos
 
 ## Renouvellement de vos certificats
 
-Les certificats *Let's Encrypt* sont valables trois mois. Il convient donc de les renouveler régulièrement. La commande ``letsencrypt.sh`` le fera pour vous régulièrement. Il convient donc juste de l'inscrire dans une crontable, par exemple en créant le fichier ``/etc/cron.weekly/letsencrypt.sh`` avec le contenu suivant :
+Les certificats *Let's Encrypt* sont valables trois mois. Il convient donc de les renouveler régulièrement. La commande ``letsencrypt.sh`` le fera pour vous régulièrement. Il convient donc juste de l'inscrire dans une crontable, par exemple en créant le fichier ``/etc/cron.weekly/letsencrypt_sh`` avec le contenu suivant :
 
     #!/bin/bash
     /usr/bin/letsencrypt.sh -c
@@ -214,7 +214,7 @@ et en lui donnant les droits en execution :
 
 Maintenant, toutes les semaines, votre *letsencrypt_sh* renouvellera votre certificat si il expire dans les 30 prochains jours.
 
-**Attention**, le fonctionnement de cron.weekly interdit l'usage du caractère . dans le nom des fichiers à executer. Pour cette raison le nom du script ne porte pas le nom du projet mais s'appelle ``letencrypt_sh``.
+**Attention**, le fonctionnement de cron.weekly interdit l'usage du caractère «\ .\ » dans le nom des fichiers à executer. Pour cette raison le nom du script ne porte pas le nom du projet mais s'appelle ``letsencrypt_sh``.
 
 ## Erreurs classiques
 
