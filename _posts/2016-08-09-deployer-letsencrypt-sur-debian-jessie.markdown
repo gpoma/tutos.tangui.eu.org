@@ -132,11 +132,13 @@ Si vous souhaitez créer un certificat pour *example.org* (le ``ServerName`` de 
 
 ### Configuration du processus d'automatisation
 
+Debian fournit un fichier de configuration général (``/etc/dehydrated/config``). Pour pouvoir faire cohabiter plusieurs configuration, Debian propose de ne pas toucher à ce fichier et créer des sous configurations via le répertoire ``/etc/dehydrated/conf.d/``.
+
 Deux fichiers sont à créer pour gérer l'automatisation des créations et renouvellements des processus :
- - un fichier de configuration général
+ - un fichier de configuration
  - un fichier permettant de redémarrer les services impactés
 
-Le fichier de configuration général se trouve dans le répertoire ``/etc/dehydrated/conf.d/`` vous pouvez lui donner le nom qui vous convient (pour notre exemple, nous l'appelons ``example.sh``. Il doit contenir la référence à la licence d'utilisation du webservice letsencrypt (variable shell ``LICENSE``), l'adresse email de contact (variable ``CONTACT_EMAIL``) et la référence au script de redémarrage des service (variable ``HOOK``) :
+Le fichier de configuration se trouve dans le répertoire ``/etc/dehydrated/conf.d/`` vous pouvez lui donner le nom qui vous convient (pour notre exemple, nous l'appelons ``example.sh``. Il doit contenir la référence à la licence d'utilisation du webservice letsencrypt (variable shell ``LICENSE``), l'adresse email de contact (variable ``CONTACT_EMAIL``) et la référence au script de redémarrage des service (variable ``HOOK``) :
 
     user@host:~ $ cat /etc/dehydrated/conf.d/example.sh
     HOOK='/etc/dehydrated/hook.sh'
@@ -164,8 +166,8 @@ N'oubliez pas de le rendre executable :
 La commande ``dehydrated`` avec l'option ``-c`` permet de lancer le processus de création de certificat :
 
     user@host: $ sudo dehydrated -c
-    # INFO: Using main config file /etc/dehydrated/config.sh
-    # INFO: Using additional config file /etc/dehydrated/conf.d/config.sh
+    # INFO: Using main config file /etc/dehydrated/config
+    # INFO: Using additional config file /etc/dehydrated/conf.d/example.sh
     Processing example.org with alternative names: www.example.org
      + Signing domains...
      + Generating private key...
