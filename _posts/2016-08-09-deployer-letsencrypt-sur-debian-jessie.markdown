@@ -1,5 +1,5 @@
 ---
-title: Deployer Let's Encrypt sous Debian Jessie grace à dehydrated
+title: Deployer Let's Encrypt sous Debian grace à dehydrated
 date:  2016-08-09 14:00
 layout: post
 ---
@@ -10,15 +10,17 @@ Ce projet s'interconnecte donc avec le serveur HTTP sur lequel vous souhaitez d�
 
 Les certificats seront renouvelés automatiquement via une cron.
 
-## Installer de dépot jessie-backport
+## Installation des packets Debian nécessaires
 
-Les packets Debian ne sont pas disponibles de base pour Jessie mais Debian les met à disposition via le dépot *jessie-backport*. Pour activer ce dépot, vous pouvez créer un fichier source.list pour apt dans le répertoire ``/etc/apt/sources.list.d/`` ayant comme nom par exemple ``backports.list`` avec le contenu :
+### Sous jessie, installer de dépot jessie-backport
+
+Contrairement aux versions, plus récente de Debian, les packets Debian ne sont pas disponibles de base pour Jessie mais Debian les met à disposition via le dépot *jessie-backport*. Pour activer ce dépot, vous pouvez créer un fichier source.list pour apt dans le répertoire ``/etc/apt/sources.list.d/`` ayant comme nom par exemple ``backports.list`` avec le contenu :
 
     deb http://ftp.us.debian.org/debian/ jessie-backports main
 
 Une fois ajouté, il faut mettre à jour apt avec la commande ``sudo aptitude update`` pour que le dépot soit intégré dans votre instance apt.
 
-## Installer les packets letsencrypt
+### Installer les packets letsencrypt
 
 Pour installer letsencrypt ainsi que les outils de dialogue avec le webservice de certification et le renouvellement automatique, vous pouvez installer le packet ``dehydrated-apache2`` (anciennement ``letsencrypt.sh-apache2``) (si vous utilisez apache2 comme serveur http/https) :
 
@@ -26,7 +28,21 @@ Pour installer letsencrypt ainsi que les outils de dialogue avec le webservice d
 
 Ce packet va installer ``dehydrated`` (les scripts shell permettant la création et le renouvellement autormatique) en plus des éléments nécessaires à l'authentification des domaines via apache.
 
-## S'assurer de la bonne configuration d'apache
+### Sous wheezy, installer manuellement les .deb
+
+Sous wheezy, aucun débpot ne propose ``dehydrated``. En revenche, vous pouvez installer les packets .deb issus de jessie-backport manuellement. Ils fonctionnenet :
+
+    user@host: $ cd /tmp
+    user@host: $ wget -q http://ftp.fr.debian.org/debian/pool/main/d/dehydrated/dehydrated_0.3.1-3~bpo8+1_all.deb
+    user@host: $ wget -q http://ftp.fr.debian.org/debian/pool/main/d/dehydrated/dehydrated-apache2_0.3.1-3~bpo8+1_all.deb
+    user@host: $ sudo dpkg -i dehydrated_*.deb
+    user@host: $ sudo dpkg -i dehydrated-apache2_*.deb
+
+Si les commandes wget retournent une 404, c'est qu'il existe une version plus récente. Téléchargez les depuis [packages.debian.org/jessie-backports/dehydrated](https://packages.debian.org/jessie-backports/dehydrated) et [packages.debian.org/jessie-backports/dehydrated-apache2](https://packages.debian.org/jessie-backports/dehydrated-apache2)
+
+## Configuration d'Apache
+
+### S'assurer de la bonne configuration d'apache
 
 Assurez vous que votre configuration https fonctionne correctement et notamment que les modules apache ``ssl`` et que le site https par défaut (``default-ssl.conf``) soient activés :
 
@@ -76,7 +92,7 @@ Du coup, ces domaines devraient répondre correctement aux requêtes https :
 
 On utilise l'option ``-k`` car le certificat par defaut sous Debian est un certificat autosigné, ce qui provoque une erreur lors de l'appel curl.
 
-## Activer la configuration dehydrated d'Apache
+### Activer la configuration dehydrated d'Apache
 
 Le paquet ``dehydrated-apache2`` fournit un fichier de configuration qu'il faut activer en créant un lien symbolique vers le sous répertoire ``conf.enabled`` :
 
