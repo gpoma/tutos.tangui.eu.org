@@ -271,3 +271,28 @@ Il est également préférable de supprimer les certificats existants :
     does not match current agreement URL [https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf]
 
 Ce message indique que la licence d'utilisation que vous avez choisi ne correspond pas à celle demandée par *Let's Encruyt*. Il faut donc que vous changier la variable ``LICENSE`` de votre fichier de configuration ``/etc/dehydrated/conf.d/`` pour y indiquer la seconde URL indiquée dans le message d'erreur.
+
+### urn:acme:error:connection (400 : Could not connect )
+
+Si l'execution de la commande ``dehydrated -c`` indique une erreur du type :
+
+    user@host: $ dehydrated -c
+    # INFO: Using main config file /etc/dehydrated/config
+    # INFO: Using additional config file /etc/dehydrated/conf.d/example.sh
+    Processing www.example.org
+    + Signing domains...
+    + Generating private key...
+    + Generating signing request...
+    + Requesting challenge for www.example.org...
+    + Responding to challenge for www.example.org...
+    ERROR: Challenge is invalid! (returned: invalid) (result: {
+    "type": "http-01",
+    "status": "invalid",
+    "error": {
+    "type": "urn:acme:error:connection",
+    "detail": "Could not connect to www.example.org",
+    "status": 400
+    },
+    [...]
+
+C'est que le domaine ``www.example.org`` n'est pas accessible publiquement. Les serveurs de *letsencrypt* ne peuvent donc vérifier que vous êtes propriétaire du domaine et refusent donc de certifier vos clés.
