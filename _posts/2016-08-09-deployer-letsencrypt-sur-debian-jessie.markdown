@@ -1,5 +1,5 @@
 ---
-title: Deployer Let's Encrypt sous Debian Jessie
+title: Deployer Let's Encrypt sous Debian Jessie grace à dehydrated
 date:  2016-08-09 14:00
 layout: post
 ---
@@ -20,17 +20,17 @@ Une fois ajouté, il faut mettre à jour apt avec la commande ``sudo aptitude up
 
 ## Installer les packets letsencrypt
 
-Pour installer letsencrypt ainsi que les outils de dialogue avec le webservice de certification et le renouvellement automatique, vous pouvez installer le packet ``letsencrypt.sh-apache2`` (si vous utilisez apache2 comme serveur http/https) :
+Pour installer letsencrypt ainsi que les outils de dialogue avec le webservice de certification et le renouvellement automatique, vous pouvez installer le packet ``dehydrated-apache2`` (anciennement ``letsencrypt.sh-apache2``) (si vous utilisez apache2 comme serveur http/https) :
 
-    user@host:~ $ sudo aptitude install letsencrypt.sh-apache2
+    user@host:~ $ sudo aptitude install dehydrated-apache2
 
-Ce packet va installer ``letsencrypt.sh`` (les scripts shell permettant la création et le renouvellement autormatique) en plus des éléments nécessaires à l'authentification des domaines via apache.
+Ce packet va installer ``dehydrated`` (les scripts shell permettant la création et le renouvellement autormatique) en plus des éléments nécessaires à l'authentification des domaines via apache.
 
 ## S'assurer de la bonne configuration d'apache
 
 Assurez vous que votre configuration https fonctionne correctement et notamment que les modules apache ``ssl`` et que le site https par défaut (``default-ssl.conf``) soient activés :
 
-    user@host:~ $ sudo a2enmod ssl 
+    user@host:~ $ sudo a2enmod ssl
     Considering dependency setenvif for ssl:
     Module setenvif already enabled
     Considering dependency mime for ssl:
@@ -38,20 +38,20 @@ Assurez vous que votre configuration https fonctionne correctement et notamment 
     Considering dependency socache_shmcb for ssl:
     Module socache_shmcb already enabled
     Module ssl already enabled
-    host@host:~$ sudo a2ensite default-ssl.conf 
+    host@host:~$ sudo a2ensite default-ssl.conf
     Site default-ssl already enabled
 
 De même assurez-vous que le ou les domaines que vous comptez utiliser en https pointe bien sur votre machine. Si votre machine a comme adresse ip *10.10.10.10* et que vos domaines sont *example.org* et *www.example.org*, vous devriez avoir :
 
-    user@host: host example.org
+    user@host: $ host example.org
     example.org has address 10.10.10.10
-    user@host: host www.example.org
+    user@host: $ host www.example.org
     example.org has address 10.10.10.10
 
 Du coup, ces domaines devraient répondre correctement aux requêtes https :
 
-    user@host: curl -sk https://example.org/ | head
-    
+    user@host: $ curl -sk https://example.org/ | head
+
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
@@ -61,8 +61,8 @@ Du coup, ces domaines devraient répondre correctement aux requêtes https :
           * {
         margin: 0px 0px 0px 0px;
         padding: 0px 0px 0px 0px;
-    
-    user@host: curl -sk https://www.example.org/ | head
+
+    user@host: $ curl -sk https://www.example.org/ | head
 
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -76,7 +76,13 @@ Du coup, ces domaines devraient répondre correctement aux requêtes https :
 
 On utilise l'option ``-k`` car le certificat par defaut sous Debian est un certificat autosigné, ce qui provoque une erreur lors de l'appel curl.
 
-De plus, vérifiez que la configuration liée au dialogue d'authentification a bien été pris en compte pour vos domaines :
+## Activer la configuration dehydrated d'Apache
+
+Le paquet ``dehydrated-apache2`` fournit un fichier de configuration qu'il faut activer en créant un lien symbolique vers le sous répertoire ``conf.enabled`` :
+
+    user@host: $ sudo ln -s /etc/apache2/conf.available/dehydrated.conf /etc/apache2/conf.enabled/
+
+Pour vérifier que la configuration liée au dialogue d'authentification a bien été pris en compte pour vos domaines :
 
     user@host: $ curl -s http://example.org/.well-known/acme-challenge/
     <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
@@ -89,22 +95,22 @@ De plus, vérifiez que la configuration liée au dialogue d'authentification a b
     <address>Apache/2.4.10 (Debian) Server on example.org Port 80</address>
     </body></html>
 
-L'erreur ``403`` est normale. En revanche si vous avez une ``404`` c'est que la configuration apache voulue par *letsencrypt.sh-apache2* n'est pas prise en compte. Peut être avez vous une directive *RewriteRule* qui bypasse la configuration de ``/etc/apache2/conf-enabled/letsencrypt.sh.conf``.
+L'erreur ``403`` est normale. En revanche si vous avez une ``404`` c'est que la configuration apache voulue par *dehydrated-apache2* n'est pas prise en compte. Peut être avez vous une directive *RewriteRule* qui bypasse la configuration de ``/etc/apache2/conf-enabled/dehydrated.conf``.
 
-Vérifiez bien que tous les domaines sur lesquels vous cherchez à utiliser HTTPS réponde par une 403.
+Vérifiez bien que tous les domaines sur lesquels vous cherchez à utiliser HTTPS répondent par une 403.
 
-## Configuration de letsencrypt.sh
+## Configuration de dehydrated
 
-La configuration se letsencrypt.sh se passe en deux temps :
+La configuration se dehydrated se passe en deux temps :
 
  - la définition des domaines
- - la configuration du processus d'automatisation letsencrypt.sh
+ - la configuration du processus d'automatisation dehydrated
 
 ### Définition des domaines à utiliser
 
-Pour chaque certificat ssl dédié à https, vous allez devoir créer une ligne dans le fichier ``/etc/letsencrypt.sh/domains.txt``(anciennement ``/var/lib/letsencrypt.sh/domains.txt``, cette destination est modifiable via la variable DOMAINS_TXT de ``config.sh``). Si un même applicatif http peut être servit depuis plusieurs domaines, vous pouvez créer un certificat pour tous les domaines concernés. Vous aurez donc une ligne par VirtualHost apache2 pour le port *:443 (et donc par ``ServerName`` concerné) et vous inscrirez les ``ServerAlias`` comme domaines secondaires.
+Pour chaque certificat ssl dédié à https, vous allez devoir créer une ligne dans le fichier ``/etc/dehydrated/domains.txt``(anciennement ``/var/lib/letsencrypt.sh/domains.txt``, cette destination est modifiable via la variable DOMAINS_TXT de ``config.sh``). Si un même applicatif http peut être servit depuis plusieurs domaines, vous pouvez créer un certificat pour tous les domaines concernés. Vous aurez donc une ligne par VirtualHost apache2 pour le port *:443 (et donc par ``ServerName`` concerné) et vous inscrirez les ``ServerAlias`` comme domaines secondaires.
 
-Si vous souhaitez créer un certificat pour *example.org* (le ``ServerName`` de votre ``VirtualHost *:443``) lié à un domaine secondaire *www.example.org* (le ``ServerAlias`` lié à *example.org*), votre fichier ``/var/lib/letsencrypt.sh/domains.txt`` contiendra donc la ligne suivante :
+Si vous souhaitez créer un certificat pour *example.org* (le ``ServerName`` de votre ``VirtualHost *:443``) lié à un domaine secondaire *www.example.org* (le ``ServerAlias`` lié à *example.org*), votre fichier ``/etc/dehydrated/domains.txt`` contiendra donc la ligne suivante :
 
     example.org www.example.org
 
@@ -114,10 +120,10 @@ Deux fichiers sont à créer pour gérer l'automatisation des créations et reno
  - un fichier de configuration général
  - un fichier permettant de redémarrer les services impactés
 
-Le fichier de configuration général se trouve dans le répertoire ``/etc/letsencrypt.sh/conf.d/`` vous pouvez lui donner le nom qui vous convient (pour notre exemple, nous l'appelons ``example.sh``. Il doit contenir la référence à la licence d'utilisation du webservice letsencrypt (variable shell ``LICENSE``), l'adresse email de contact (variable ``CONTACT_EMAIL``) et la référence au script de redémarrage des service (variable ``HOOK``) :
+Le fichier de configuration général se trouve dans le répertoire ``/etc/dehydrated/conf.d/`` vous pouvez lui donner le nom qui vous convient (pour notre exemple, nous l'appelons ``example.sh``. Il doit contenir la référence à la licence d'utilisation du webservice letsencrypt (variable shell ``LICENSE``), l'adresse email de contact (variable ``CONTACT_EMAIL``) et la référence au script de redémarrage des service (variable ``HOOK``) :
 
-    user@host:~ $ cat /etc/letsencrypt.sh/conf.d/example.sh
-    HOOK='/etc/letsencrypt.sh/hook.sh'
+    user@host:~ $ cat /etc/dehydrated/conf.d/example.sh
+    HOOK='/etc/dehydrated/hook.sh'
     CONTACT_EMAIL=contact@example.org
     LICENSE="https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf"
 
@@ -125,25 +131,25 @@ Attention, en production, *letsencrypt* **limite le nombre de requêtes** possib
 
     CA="https://acme-staging.api.letsencrypt.org/directory"
 
-Une fois que vos tests effectués, vous pourrez supprimer cette ligne (ainsi que les fichiers ``/var/lib/letsencrypt.sh/private_key.json``, ``/var/lib/letsencrypt.sh/private_key.pem`` et tous ceux qui se trouvent dans les sous répertoires de ``/var/lib/letsencrypt.sh/certs/``).
+Une fois que vos tests effectués, vous pourrez supprimer cette ligne (ainsi que les fichiers ``/var/lib/dehydrated/private_key.json``, ``/var/lib/dehydrated/private_key.pem`` et tous ceux qui se trouvent dans les sous répertoires de ``/var/lib/dehydrated/certs/``).
 
-Pour le script de redémarrage des services, (que nous avons nommé ``/etc/letsencrypt.sh/hook.sh`` dans le fichier de configuration), il permet de redémarrer apache une fois les nouvelles clés déployées. Voici le contenu du fichier que vous devez créer :
+Pour le script de redémarrage des services, (que nous avons nommé ``/etc/dehydrated/hook.sh`` dans le fichier de configuration), il permet de redémarrer apache une fois les nouvelles clés déployées. Voici le contenu du fichier que vous devez créer :
 
-    user@host:~ $ cat /etc/letsencrypt.sh/hook.sh
+    user@host:~ $ cat /etc/dehydrated/hook.sh
     #!/bin/sh
     [ "$1" != "deploy_cert" ] || service apache2 restart
-    
+
 N'oubliez pas de le rendre executable :
 
-    user@host:~ $ sudo chmod +x /etc/letsencrypt.sh/hook.sh
+    user@host:~ $ sudo chmod +x /etc/dehydrated/hook.sh
 
 ## Création du certificat
 
-La commande ``letsencrypt.sh`` avec l'option ``-c`` permet de lancer le processus de création de certificat :
+La commande ``dehydrated`` avec l'option ``-c`` permet de lancer le processus de création de certificat :
 
-    user@host: $ sudo letsencrypt.sh -c
-    # INFO: Using main config file /etc/letsencrypt.sh/config.sh
-    # INFO: Using additional config file /etc/letsencrypt.sh/conf.d/config.sh
+    user@host: $ sudo dehydrated -c
+    # INFO: Using main config file /etc/dehydrated/config.sh
+    # INFO: Using additional config file /etc/dehydrated/conf.d/config.sh
     Processing example.org with alternative names: www.example.org
      + Signing domains...
      + Generating private key...
@@ -160,9 +166,9 @@ La commande ``letsencrypt.sh`` avec l'option ``-c`` permet de lancer le processu
      + Creating fullchain.pem...
      + Done!
 
-Vos clés privées et publiques ainsi que votre certificat est maintenant disponible dans le répertoire ``/var/lib/letsencrypt.sh/certs/example.org/`` (où *example.org* est votre domaine principal).
+Vos clés privées et publiques ainsi que votre certificat est maintenant disponible dans le répertoire ``/var/lib/dehydrated/certs/example.org/`` (où *example.org* est votre domaine principal).
 
-Référez vous à la section [Erreurs classiques](#erreurs-classiques) si l'execution de letsencrypt.sh se termine par une erreur que vous ne comprenez pas.
+Référez vous à la section [Erreurs classiques](#erreurs-classiques) si l'execution de dehydrated se termine par une erreur que vous ne comprenez pas.
 
 ## Utilisation des certificats dans Apache
 
@@ -183,9 +189,9 @@ Vous pouvez ensuite créer autant de fichier de configuration que vous avez de c
         ServerAlias www.example.org
         DocumentRoot /var/www/example.org
         SSLEngine On
-        SSLCertificateFile      /var/lib/letsencrypt.sh/certs/example.org/cert.pem
-        SSLCertificateKeyFile   /var/lib/letsencrypt.sh/certs/example.org/privkey.pem
-        SSLCertificateChainFile /var/lib/letsencrypt.sh/certs/example.org/chain.pem
+        SSLCertificateFile      /var/lib/dehydrated/certs/example.org/cert.pem
+        SSLCertificateKeyFile   /var/lib/dehydrated/certs/example.org/privkey.pem
+        SSLCertificateChainFile /var/lib/dehydrated/certs/example.org/chain.pem
         <Directory /var/www/example.org>
             Require all granted
         </Directory>
@@ -203,27 +209,27 @@ Vous pouvez maintenant recharger votre serveur apache qui servira maintenant vos
 
 ## Renouvellement de vos certificats
 
-Les certificats *Let's Encrypt* sont valables trois mois. Il convient donc de les renouveler régulièrement. La commande ``letsencrypt.sh`` le fera pour vous régulièrement. Il convient donc juste de l'inscrire dans une crontable, par exemple en créant le fichier ``/etc/cron.weekly/letsencrypt_sh`` avec le contenu suivant :
+Les certificats *Let's Encrypt* sont valables trois mois. Il convient donc de les renouveler régulièrement. La commande ``dehydrated`` le fera pour vous régulièrement. Il convient donc juste de l'inscrire dans une crontable, par exemple en créant le fichier ``/etc/cron.weekly/letsencrypt_sh`` avec le contenu suivant :
 
     #!/bin/bash
-    /usr/bin/letsencrypt.sh -c
+    /usr/bin/dehydrated -c
 
 et en lui donnant les droits en execution :
 
-    user@host:~ $ sudo chmod +x /etc/cron.weekly/letsencrypt_sh
+    user@host:~ $ sudo chmod +x /etc/cron.weekly/dehydrated
 
-Maintenant, toutes les semaines, votre *letsencrypt_sh* renouvellera votre certificat si il expire dans les 30 prochains jours.
+Maintenant, toutes les semaines, votre *dehydrated* renouvellera votre certificat si il expire dans les 30 prochains jours.
 
-**Attention**, le fonctionnement de cron.weekly interdit l'usage du caractère «\ .\ » dans le nom des fichiers à executer. Pour cette raison le nom du script ne porte pas le nom du projet mais s'appelle ``letsencrypt_sh``.
+**Attention**, le fonctionnement de cron.weekly interdit l'usage du caractère «\ .\ » dans le nom des fichiers à executer. Pour cette raison le nom du script ne porte pas le nom du projet mais s'appelle ``dehydrated``.
 
 ## Erreurs classiques
 
-Voici des solutions pour résoudre des problèmes classiquement rencontrés avec letsencrypt.sh :
+Voici des solutions pour résoudre des problèmes classiquement rencontrés avec dehydrated :
 
 ### No registration exists matching provided key
 
     ERROR: An error occurred while sending post-request to https://acme-v01.api.letsencrypt.org/acme/new-authz (Status 403)
-    
+
     Details:
     {
       "type": "urn:acme:error:unauthorized",
@@ -235,19 +241,17 @@ Cette erreur indique que la clée privée de votre instance letsencrypt n'est pa
 
 Il faut donc en crééer une nouvelle. Pour se faire, il suffit de supprimer la clé existante :
 
-    user@host:~ $ sudo rm /var/lib/letsencrypt.sh/private_key.json
-    user@host:~ $ sudo rm /var/lib/letsencrypt.sh/private_key.pem
+    user@host:~ $ sudo rm /var/lib/dehydrated/private_key.json
+    user@host:~ $ sudo rm /var/lib/dehydrated/private_key.pem
 
 Il est également préférable de supprimer les certificats existants :
 
-    user@host:~ $ sudo rm -rf /var/lib/letsencrypt.sh/certs/*
+    user@host:~ $ sudo rm -rf /var/lib/dehydrated/certs/*
 
 ### Provided agreement does not match the current one
 
 
-    Provided agreement URL [https://letsencrypt.org/documents/LE-SA-v1.0.1-July-27-2015.pdf] 
+    Provided agreement URL [https://letsencrypt.org/documents/LE-SA-v1.0.1-July-27-2015.pdf]
     does not match current agreement URL [https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf]
 
-Ce message indique que la licence d'utilisation que vous avez choisi ne correspond pas à celle demandée par *Let's Encruyt*. Il faut donc que vous changier la variable ``LICENSE`` de votre fichier de configuration ``/etc/letsencrypt.sh/conf.d/`` pour y indiquer la seconde URL indiquée dans le message d'erreur.
-
-
+Ce message indique que la licence d'utilisation que vous avez choisi ne correspond pas à celle demandée par *Let's Encruyt*. Il faut donc que vous changier la variable ``LICENSE`` de votre fichier de configuration ``/etc/dehydrated/conf.d/`` pour y indiquer la seconde URL indiquée dans le message d'erreur.
