@@ -96,7 +96,12 @@ On utilise l'option ``-k`` car le certificat par defaut sous Debian est un certi
 
 Le paquet ``dehydrated-apache2`` fournit un fichier de configuration qu'il faut activer en créant un lien symbolique vers le sous répertoire ``conf.enabled`` :
 
-    user@host: $ sudo ln -s /etc/apache2/conf.available/dehydrated.conf /etc/apache2/conf.enabled/
+    user@host: $ sudo ln -s /etc/apache2/conf-available/dehydrated.conf /etc/apache2/conf-enabled/
+
+Pour debian Wheezy :
+
+    user@host: $ sudo ln -s /etc/apache2/conf-available/dehydrated.conf /etc/apache2/conf.d/
+
 
 Pour vérifier que la configuration liée au dialogue d'authentification a bien été pris en compte pour vos domaines :
 
@@ -214,6 +219,7 @@ Vous pouvez ensuite créer autant de fichier de configuration que vous avez de c
             Require all granted
         </Directory>
     </VirtualHost>
+* La directive Require all granted  est utilisé pour la version d'Apache > 2.2  ( Ref: http://httpd.apache.org/docs/current/upgrading.html )
 
 En n'oubliant pas d'activer ce site :
 
@@ -227,7 +233,7 @@ Vous pouvez maintenant recharger votre serveur apache qui servira maintenant vos
 
 ## Renouvellement de vos certificats
 
-Les certificats *Let's Encrypt* sont valables trois mois. Il convient donc de les renouveler régulièrement. La commande ``dehydrated`` le fera pour vous régulièrement. Il convient donc juste de l'inscrire dans une crontable, par exemple en créant le fichier ``/etc/cron.weekly/letsencrypt_sh`` avec le contenu suivant :
+Les certificats *Let's Encrypt* sont valables trois mois. Il convient donc de les renouveler régulièrement. La commande ``dehydrated`` le fera pour vous régulièrement. Il convient donc juste de l'inscrire dans une crontable, par exemple en créant le fichier ``/etc/cron.weekly/dehydrated`` avec le contenu suivant :
 
     #!/bin/bash
     /usr/bin/dehydrated -c
