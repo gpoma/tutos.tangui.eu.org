@@ -12,13 +12,7 @@ Les certificats seront renouvelés automatiquement via une cron.
 
 ## Installation des packets Debian nécessaires
 
-### Sous jessie, installer de dépot jessie-backport
-
-Contrairement aux versions, plus récente de Debian, les packets Debian ne sont pas disponibles de base pour Jessie mais Debian les met à disposition via le dépot *jessie-backport*. Pour activer ce dépot, vous pouvez créer un fichier source.list pour apt dans le répertoire ``/etc/apt/sources.list.d/`` ayant comme nom par exemple ``backports.list`` avec le contenu :
-
-    deb http://ftp.us.debian.org/debian/ jessie-backports main
-
-Une fois ajouté, il faut mettre à jour apt avec la commande ``sudo aptitude update`` pour que le dépot soit intégré dans votre instance apt.
+Une majorité des versions de Debian suppporte ``dehydrated``, le projet qui simplifie la gestion des certificats *letsencrypt*. A partir de ``stretch``, le projet est intégré. Pour ``jessie``, un backport est proposé. Pour ``wheezy``, les packets deb fonctionnent. Voici donc les procédures d'installation pour ces différents cas de figures :
 
 ### Installer les packets letsencrypt
 
@@ -27,6 +21,14 @@ Pour installer letsencrypt ainsi que les outils de dialogue avec le webservice d
     user@host:~ $ sudo aptitude install dehydrated-apache2
 
 Ce packet va installer ``dehydrated`` (les scripts shell permettant la création et le renouvellement autormatique) en plus des éléments nécessaires à l'authentification des domaines via apache.
+
+### Sous jessie, installer de dépot jessie-backport
+
+Contrairement aux versions, plus récente de Debian, les packets Debian ne sont pas disponibles de base pour Jessie mais Debian les met à disposition via le dépot *jessie-backport*. Pour activer ce dépot, vous pouvez créer un fichier source.list pour apt dans le répertoire ``/etc/apt/sources.list.d/`` ayant comme nom par exemple ``backports.list`` avec le contenu :
+
+    deb http://ftp.us.debian.org/debian/ jessie-backports main
+
+Une fois ajouté, il faut mettre à jour apt avec la commande ``sudo aptitude update`` pour que le dépot soit intégré dans votre instance apt.
 
 ### Sous wheezy, installer manuellement les .deb
 
