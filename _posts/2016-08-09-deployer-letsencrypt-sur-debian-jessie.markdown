@@ -221,7 +221,8 @@ Vous pouvez ensuite créer autant de fichier de configuration que vous avez de c
             Require all granted
         </Directory>
     </VirtualHost>
-* La directive Require all granted  est utilisé pour la version d'Apache > 2.2  ( Ref: http://httpd.apache.org/docs/current/upgrading.html )
+
+**Attention** : La directive ``Require all granted`` n'est supportée qu'à partir d'Apache 2.4 ou suppérieur. Vous devez commenter cette ligne pour un apache 2.2 ou inférieur ([source](http://httpd.apache.org/docs/current/upgrading.html))
 
 En n'oubliant pas d'activer ce site :
 
