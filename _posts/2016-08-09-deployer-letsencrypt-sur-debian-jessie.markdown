@@ -307,3 +307,8 @@ Si l'execution de la commande ``dehydrated -c`` indique une erreur du type :
     [...]
 
 C'est que le domaine ``www.example.org`` n'est pas accessible publiquement. Les serveurs de *letsencrypt* ne peuvent donc vérifier que vous êtes propriétaire du domaine et refusent donc de certifier vos clés.
+
+## Remerciement
+
+Merci à [Mokrane Ahman](https://github.com/mahmane),  Frederic Mathy et
+[Cyril Pawelko](https://github.com/cyrilpawelko) et les petits gars du [24ème](https://github.com/24eme) pour leur suggestions d'amélioration sur ce tuto.
