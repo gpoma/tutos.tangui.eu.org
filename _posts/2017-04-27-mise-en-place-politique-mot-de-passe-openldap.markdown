@@ -33,6 +33,7 @@ Pour ce faire, il faut créer un fichier *ldif* introduisant un noeud ``ou=ppoli
 
     dn: cn=default,ou=pwpolicies,dc=example,dc=org
     objectClass: pwdPolicy
+    objectClass: organizationalRole
     cn: default
     pwdMaxAge: 0
     pwdAttribute: userPassword
