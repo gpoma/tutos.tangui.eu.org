@@ -38,7 +38,7 @@ Pour ce faire, il faut créer un fichier *ldif* introduisant un noeud ``ou=ppoli
     pwdAttribute: userPassword
     pwdExpireWarning: 0
     pwdInHistory: 0
-    pwdCheckQuality: 0
+    pwdCheckQuality: 1
     pwdMaxFailure: 0
     pwdLockout: FALSE
     pwdLockoutDuration: 0
@@ -47,7 +47,7 @@ Pour ce faire, il faut créer un fichier *ldif* introduisant un noeud ``ou=ppoli
     pwdMustChange: FALSE
     pwdMinLength: 0
     pwdAllowUserChange: TRUE
-    pwdSafeModify: TRUE
+    pwdSafeModify: FALSE
 
 La commmande ``ldapadd`` permet d'ajouter ces éléments dans le LDAP :
 
