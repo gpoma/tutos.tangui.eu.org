@@ -6,7 +6,7 @@ layout: post
 
 En root
 
-Installation de lvm et rsync
+Installation de lvm et rsync :
 
     aptitude install lvm2 rsync
 
