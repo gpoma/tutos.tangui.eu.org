@@ -200,12 +200,12 @@ Référez vous à la section [Erreurs classiques](#erreurs-classiques) si l'exec
 Vu qu'il est possible de générer plusieurs certificats pour une même machine, il est préférable de configurer les virtual hosts sur votre apache en ajoutant la directive ``NameVirtualHost *:443`` au début du fichier ``/etc/apache2/sites-enabled/default-ssl.conf`` :
 
     <IfModule mod_ssl.c>
-        NameVirualHost *:443
+        NameVirtualHost *:443
         <VirtualHost *:443>
                 ServerAdmin webmaster@localhost
     [...]
 
-Assurez vous que la balise ``VirtualHost`` reprenne strictement la même chaine de caractère (``*:443``) que ``NameVirualHost``.
+Assurez vous que la balise ``VirtualHost`` reprenne strictement la même chaine de caractère (``*:443``) que ``NameVirtualHost``.
 
 Vous pouvez ensuite créer autant de fichier de configuration que vous avez de certificat ssl. Dans notre exemple, pour le certificat lié à *example.org*, nous créons un fichier ``001-ssl-example.org.conf`` dans ``/etc/apache2/sites-available/`` qui contient au moins les lignes suivantes :
 
