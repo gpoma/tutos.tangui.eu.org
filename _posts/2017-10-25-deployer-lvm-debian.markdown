@@ -88,7 +88,7 @@ Rédemarrer la machine pour l'ultime contrôle
 Monter la partition root qui accueillait à l'origine la home et varlib
 
     mkdir /tmp/root
-    mount /dev/sda2 /tmp/root/
+    mount /dev/sda1 /tmp/root/
 
 Supprimer le contenu des dosssiers home et varlib de la partition root
 
