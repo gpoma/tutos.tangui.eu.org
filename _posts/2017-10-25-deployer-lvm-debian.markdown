@@ -25,11 +25,11 @@ Démontage et suppression de la partition /data :
 
 Création du volume physique sur la partition qui contenait /data :
 
-    pvcreate /dev/sda4
+    pvcreate /dev/sda2
 
 Création du groupe lvm
 
-    vgcreate volgroup /dev/sda4
+    vgcreate volgroup /dev/sda2
 
 Pour vérifier que tout a été bien créé
 
