@@ -9,3 +9,15 @@ Ajouter la ligne suivante dans le script bash d'éxécution de couchdb /opt/couc
 ```
 export COUCHDB_TEST_ADMIN_PARTY_OVERRIDE=1
 ```
+
+Supprimer le fichier /opt/couchdb/etc/local.d/10-admins.ini
+
+```
+rm /opt/couchdb/etc/local.d/10-admins.ini
+```
+
+Redémarrer le service couchdb
+
+```
+service couchdb restart
+```
