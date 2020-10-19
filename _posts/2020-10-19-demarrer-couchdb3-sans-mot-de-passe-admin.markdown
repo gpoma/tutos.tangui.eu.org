@@ -8,7 +8,7 @@ Depuis la version 3 de couchdb on ne peut plus démarrer le service sans avoir c
 
 > -------- No Admin Account configured. Please configure an Admin Account in your local.ini file and restart CouchDB.
 
-Il existe cepedant une astuce si on souhaite quand même le faire.
+Il existe cepenant une astuce pour contourner ce contrôle.
 
 Ajouter la ligne suivante dans le script bash d'éxécution de couchdb /opt/couchdb/bin/couchdb :
 
