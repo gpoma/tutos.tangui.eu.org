@@ -164,7 +164,11 @@ Comme pour le serveur, il faut créer un script d'initialisation de notre nouvel
 
     #!/bin/bash
 
-    iptables $INTERFACE 10.0.0.2 netmask 255.255.255.0
+    ip link set $INTERFACE up
+    ip addr add 10.0.0.2/24 dev $INTERFACE
+
+    # On peut ajouter des routes
+    # ip route add 10.0.0.0/16 via 10.X.X.X
 
 NB: L'IP VPN du client sera ici *10.0.0.2*. Choisissez la en accord avec celle retenue pour le serveur.
 
@@ -251,8 +255,16 @@ NB: il s'agit ici d'un k miniscule ;-)
 
 Pour activer l'un des réseau tinc au démarrage d'un des noeuds, il faut l'ajouter dans le fichier */etc/tinc/nets.boot* :
 
-     ## This file contains all names of the networks to be started on system startup.
-     mon_reseau
+    ## This file contains all names of the networks to be started on system startup.
+    mon_reseau
+
+Pour le lancer au démarrage du système, il faut activer les services systemd :
+
+    systemctl start tinc tinc@mon_reseau
+    systemctl enable tinc tinc@mon_reseau
+
+    # Le service spécial tinc@ active tout les réseaux tinc
+
 
 ##Débugger tinc
 
