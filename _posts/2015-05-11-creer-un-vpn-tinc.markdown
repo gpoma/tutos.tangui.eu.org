@@ -255,8 +255,16 @@ NB: il s'agit ici d'un k miniscule ;-)
 
 Pour activer l'un des réseau tinc au démarrage d'un des noeuds, il faut l'ajouter dans le fichier */etc/tinc/nets.boot* :
 
-     ## This file contains all names of the networks to be started on system startup.
-     mon_reseau
+    ## This file contains all names of the networks to be started on system startup.
+    mon_reseau
+
+Pour le lancer au démarrage du système, il faut activer les services systemd :
+
+    systemctl start tinc tinc@mon_reseau
+    systemctl enable tinc tinc@mon_reseau
+
+    # Le service spécial tinc@ active tout les réseaux tinc
+
 
 ##Débugger tinc
 
