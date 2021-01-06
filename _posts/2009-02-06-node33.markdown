@@ -83,7 +83,7 @@ Débrancher et rebrancher. Votre distribution (Ubuntu, Fedora) reconnait
 alors votre clé chiffrée et vous demande votre passphrase pour décrypter
 la partition.
 
-![](http://tutos.tangui.eu.org/files/Screenshot-Unlock%20Encrypted%20Data.png)
+![](//tutos.tangui.eu.org/files/Screenshot-Unlock%20Encrypted%20Data.png)
 
 Monter manuellement une partition chiffrée
 ------------------------------------------
@@ -108,6 +108,6 @@ Pour démonter votre clé :
 Utiliser la partition chiffrée sous windows
 -------------------------------------------
 
-Le projet [Free OTFE](http://www.freeotfe.org/) propose des outils pour
+Le projet [Free OTFE](//www.freeotfe.org/) propose des outils pour
 créer et utiliser des disques chiffrés en LUKS.
 

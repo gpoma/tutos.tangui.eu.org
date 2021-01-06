@@ -11,7 +11,7 @@ un défaut : le mot de passe commité restera visible dans l'historique du
 svn même si le fichier en question est modifié.
 
 Pour supprimer un répertoire entier, cette [page est plus
-appropriée](http://tutos.tangui.eu.org/41-supprimer-un-repertoire-de-lhistorique-dun-svn).
+appropriée](//tutos.tangui.eu.org/41-supprimer-un-repertoire-de-lhistorique-dun-svn).
 
 Voici une procédure qui permet de retirer de telles informations
 confidentielles de l'historique d'un svn.

@@ -3,7 +3,7 @@ title: Antisèches techniques
 email: tangui@tangui.eu.org
 description: "Développement, administratation technique, mes antisèches sur le logiciel libre, GNU/Linux, PHP, Apache, l'Open source, Debian, ..."
 baseurl: ""
-url: "http://tutos.tangui.eu.org/"
+url: "https://tutos.tangui.eu.org/"
 twitter_username: teymour
 github_username:  teymour
 include: [".htaccess"]
