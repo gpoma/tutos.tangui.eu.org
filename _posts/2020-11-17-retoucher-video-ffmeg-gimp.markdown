@@ -1,3 +1,9 @@
+---
+title: Retoucher une vidéo grace à ffmepg et gimp
+date:  2020-11-17 12:00
+layout: post
+---
+
 # Comment retoucher une vidéo grace à ffmepg et gimp
 
 ## 1/ Exporter la vidéo en jpeg 
