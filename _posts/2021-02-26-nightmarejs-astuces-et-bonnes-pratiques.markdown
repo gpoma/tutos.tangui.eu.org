@@ -16,24 +16,30 @@ nightmare
   .goto(urlLogin)
   .wait('body')
   .then(function() {
+      console.log("Récupération de l'html de la page 1");
+
       return nightmare
         .goto(urlPage1)
         .wait('body')
-        .html('mapage1.html'); /* Exporte la page en html */
+        .html('mapage1.html');
         .catch(error => {console.error('Search failed:', error)})
   })
   .then(function() {
+      console.log("Récupération de l'html de la page 2");
+
       return nightmare
         .goto(urlPage2)
         .wait('body')
-        .html('mapage2.html'); /* Exporte la page en html */
+        .html('mapage2.html');
         .catch(error => {console.error('Search failed:', error)})
   })
   .then(function() {
+      console.log("Récupération de l'html de la page 3");
+
       return nightmare
         .goto(urlPage3)
         .wait('body')
-        .html('mapage3.html'); /* Exporte la page en html */
+        .html('mapage3.html');
         .catch(error => {console.error('Search failed:', error)})
   })
   .then(function() {
@@ -49,20 +55,26 @@ nightmare
   .goto(urlLogin)
   .wait('body')
   .then(function() {
+      console.log("Screenshot de l'étape 1");
+
       return nightmare
         .goto(urlPage)
         .wait('#buttonNextEtape1')
-        .screenshot('etape1.jpg');
+        .screenshot('etape1.jpg')
         .click('#buttonNextEtape1')
         .then(function() {
+            console.log("Screenshot de l'étape 2");
+
             return nightmare
                 .wait('#buttonNextEtape2')
-                .screenshot('etape2.jpg');
+                .screenshot('etape2.jpg')
                 .click('#buttonNextEtape2')
                 .then(function() {
+                    console.log("Screenshot de l'étape 3");
+
                     return nightmare
                         .wait('#buttonNextEtape3')
-                        .screenshot('etape3.jpg');
+                        .screenshot('etape3.jpg')
                         .click('#buttonNextEtape3')
                         .end()
                 })
@@ -77,16 +89,19 @@ nightmare
 nightmare
   .goto(url)
   .wait('body')
-  .exists('#monelement') /* Test si l'élément existe et permet d'utiliser ce test dans la fonction then */
+  .exists('#monbouton') /* Test si un bouton existe et permet d'utiliser l'existence dans la fonction then */
   .then(function(exist) {
       if(!exist) {
+          console.log("Le bouton n'existe pas");
 
           return nightmare;
       }
+      console.log("Export html de la page après clique sur le bouton");
 
       return nightmare
         .click('#monelement')
-        .html('monfichier.html'); /* Exporte la page en html */
+        .html('monfichier.html')
+        .end();
   })
 ```
 
@@ -98,8 +113,11 @@ nightmare
   .wait('table#montableau')
   .evaluate(function() {
         return $('table#montableau a').length
+   })
   .then(function(nbLink) {
       for(var i = 0; i < nbLink; i++) {
+          console.log("Export html de la page"+i);
+
           nightmare
             .click("table#montableau :nth-child("+i+")")
             .wait('body')
@@ -107,6 +125,6 @@ nightmare
             .back()
       }
 
-      return nightmare;
+      return nightmare.end();
   })
 ```
