@@ -12,6 +12,7 @@ layout: post
 Compartimenter les actions permet de pouvoir continuer l'éxécution en cas d'erreur pour une navigation dont les actions ne sont pas dépendantes les unes des autres.
 
 ```
+
 nightmare
   .goto(urlLogin)
   .wait('body')
@@ -45,12 +46,14 @@ nightmare
   .then(function() {
       nightmare.end
   });
+
 ```
 
 ## Chainer les actions qui dépendes les unes des autres
 
 
 ```
+
 nightmare
   .goto(urlLogin)
   .wait('body')
@@ -80,12 +83,14 @@ nightmare
                 })
         })
   })
+
 ```
 
 
 ## Réaliser un «if»
 
 ```
+
 nightmare
   .goto(url)
   .wait('body')
@@ -103,11 +108,13 @@ nightmare
         .html('monfichier.html')
         .end();
   })
+
 ```
 
 ## Faire une boucle
 
 ```
+
 nightmare
   .goto(url)
   .wait('table#montableau')
@@ -127,4 +134,5 @@ nightmare
 
       return nightmare.end();
   })
+
 ```
