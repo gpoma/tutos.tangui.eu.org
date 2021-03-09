@@ -8,9 +8,7 @@ layout: post
 
 ## Installer le plugin 
 
-```
-apm install editorconfig
-```
+    apm install editorconfig
 
 ## Configurer atom
 
@@ -20,9 +18,7 @@ Dans les `Settings` de l'`Editor` passer `TabType` à `auto`
 
 Désactiver le plugin [whitespace](https://atom.io/packages/whitespace)
 
-```
-apm disable whitespace
-```
+    apm disable whitespace
 
 
 
