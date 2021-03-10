@@ -38,7 +38,9 @@ Renommer un fichier : `F2`
 
 ## Package
 
-### Gérer plusieurs projet 
+### Gérer plusieurs projets
+
+Permet de naviguer entre plusieurs projets
 
 Package [project-manager](https://atom.io/packages/project-manager)
 
