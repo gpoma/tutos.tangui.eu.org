@@ -8,17 +8,17 @@ layout: post
 
 ## Navigation
 
-Rechercher un fichier :  `ctrl + p`  :heavy_plus_sign: :mag_right: `fichier à rechercher`
+Rechercher un fichier :  `ctrl + p` ➕ 🔎 `fichier à rechercher`
 
-Rechercher une action : `ctrl + maj + p` :heavy_plus_sign: :mag_right: `action à rechercher` 
+Rechercher une action : `ctrl + maj + p` ➕ 🔎 `action à rechercher` 
 
-Aller à une fonction : `ctrl + r`  :heavy_plus_sign: :mag_right: `fonction à rechercher`
+Aller à une fonction : `ctrl + r` ➕ 🔎 `fonction à rechercher`
 
 ## Édition
 
 Dupliquer une ligne : `ctrl + maj + d`
 
-Déplacer une ligne : `ctrl` + :arrow_up: ou `ctrl` + :arrow_down:
+Déplacer une ligne : `ctrl` + ⬆ ou `ctrl` + ⬇
 
 Supprimer une ligne : `ctrl + x`
 
@@ -26,9 +26,9 @@ Sélectionner une ligne entière : `ctrl + l`
 
 Commenter une ligbe : `ctrl + maj + /`
 
-Voir la ligne d'un fichier dans github : `ctrl + maj + p` :heavy_plus_sign: :mag_right: `git blame`
+Voir la ligne d'un fichier dans github : `ctrl + maj + p` ➕ 🔎 `git blame`
 
-Séléctionner une même chaîne de caractère plusieurs fois : `ctrl + d` :arrows_counterclockwise::
+Séléctionner une même chaîne de caractère plusieurs fois : `ctrl + d` 🔄
 
 ## Arborescence de fichier
 
