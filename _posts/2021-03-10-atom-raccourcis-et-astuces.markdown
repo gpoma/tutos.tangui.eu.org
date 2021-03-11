@@ -18,7 +18,7 @@ Aller à une fonction : `ctrl + r` ➕ 🔎 `fonction à rechercher`
 
 Dupliquer une ligne : `ctrl + maj + d`
 
-Déplacer une ligne : `ctrl` + ⬆ ou `ctrl` + ⬇
+Déplacer une ligne : `ctrl + ⬆` ou `ctrl + ⬇`
 
 Supprimer une ligne : `ctrl + x`
 
