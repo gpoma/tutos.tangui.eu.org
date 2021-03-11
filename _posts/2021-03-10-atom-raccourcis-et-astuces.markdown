@@ -8,11 +8,11 @@ layout: post
 
 ## Navigation
 
-Rechercher un fichier :  `ctrl + p` ➕ 🔎 `fichier à rechercher`
+Rechercher un fichier :  `ctrl + p` ➕ `🔎 fichier à rechercher`
 
-Rechercher une action : `ctrl + maj + p` ➕ 🔎 `action à rechercher` 
+Rechercher une action : `ctrl + maj + p` ➕ `🔎 action à rechercher` 
 
-Aller à une fonction : `ctrl + r` ➕ 🔎 `fonction à rechercher`
+Aller à une fonction : `ctrl + r` ➕ `🔎 fonction à rechercher`
 
 ## Édition
 
@@ -24,11 +24,11 @@ Supprimer une ligne : `ctrl + x`
 
 Sélectionner une ligne entière : `ctrl + l`
 
-Commenter une ligbe : `ctrl + maj + /`
+Commenter une ligne : `ctrl + maj + /`
 
-Voir la ligne d'un fichier dans github : `ctrl + maj + p` ➕ 🔎 `git blame`
+Voir la ligne d'un fichier dans github : `ctrl + maj + p` ➕ `🔎 git blame`
 
-Séléctionner une même chaîne de caractère plusieurs fois : `ctrl + d` 🔄
+Séléctionner une même chaîne de caractère plusieurs fois et permet une édition multiple : `ctrl + d` 🔄
 
 ## Arborescence de fichier
 
