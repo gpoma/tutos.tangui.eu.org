@@ -41,7 +41,5 @@ Cela va créer un répertoire */etc/systemd/system/couchdb.service.d/* pour y st
 
 Il suffit donc d'ajouter les lignes suivantes pour ajouter la variable d'environnement :
 
-```
-[Service]
-Environment="COUCHDB_TEST_ADMIN_PARTY_OVERRIDE=1"
-```
+    [Service]
+    Environment="COUCHDB_TEST_ADMIN_PARTY_OVERRIDE=1"
