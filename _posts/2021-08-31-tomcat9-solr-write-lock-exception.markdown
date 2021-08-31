@@ -30,7 +30,7 @@ Pour s'en assurer, il faut changer les droits :
 
 ## Autoriser les écritures dans la sandbox java
 
-Avec tomcat9, un système de sandboxing a été introduit. Il limite les accès en écriture sur quasi tous les répertoires (Pour plus d'info, voir ce [https://salsa.debian.org/java-team/tomcat9/blob/master/debian/README.Debian README Debian].
+Avec tomcat9, un système de sandboxing a été introduit. Il limite les accès en écriture sur quasi tous les répertoires (Pour plus d'info, voir ce [README Debian](https://salsa.debian.org/java-team/tomcat9/blob/master/debian/README.Debian)).
 
 A moins que le répertoire `data` soit un sous répertoire de `/var/lib/tomcat9/webapps`, il faut l'ajouter comme répertoire autorisé dans `service.d`.
 
@@ -41,3 +41,5 @@ Pour se faire, il suffit d'ajouter un fichier .conf dans le répertoire `/etc/sy
       ReadWritePaths=/chemin/absolu/vers/solr/data
 
 (il faut evidemment adapter /chemin/absolu/vers/solr/data à votre configuration)
+
+Cette résolution a été trouvée grace à ce [fil serverfault](https://serverfault.com/questions/989150/application-logging-broken-under-tomcat-9-permission-denied-to-var-log-myapp).
