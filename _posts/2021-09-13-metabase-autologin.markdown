@@ -58,7 +58,7 @@ Puis voici la configuration apache pour insérer l'utilisation d'un fichier java
             Header unset Content-Security-Policy
             RequestHeader unset Accept-Encoding
             AddOutputFilterByType SUBSTITUTE text/html
-     		Substitute "s#</body>#<script type=\"text/javascript\" src=\"/js/metabase_autologin.js\"></script></body>#ni"
+            Substitute "s#</body>#<script type=\"text/javascript\" src=\"/js/metabase_autologin.js\"></script></body>#ni"
     </Location>
 
 
