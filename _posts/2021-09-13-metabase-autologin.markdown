@@ -8,7 +8,7 @@ layout: post
 
 ## S'authentifier avec l'api de metabase
     
-Il est possible de s'authentifier à metabase via son api, en incluant par exemple ce code javascript dans une page du même domaine.
+Il est possible de s'authentifier à metabase via son api, en incluant par exemple ce code javascript dans une page du même domaine :
     
     var metabase_webpath = '/metabase';
     var username = 'username';
@@ -20,7 +20,7 @@ Il est possible de s'authentifier à metabase via son api, en incluant par exemp
     xhttp.send('{"password":"' + password + '","username":"' + username + '","remember":'+ remember +'}');
 
 
-Une réponse avec le code http 200 indique une authentification réussi
+Une réponse avec le code http 200 indique une authentification réussi.
 
 ## Vérifier si l'utilisateur est authentifié sur metabase
 
@@ -39,7 +39,7 @@ Une réponse avec le code http 200 indique une authentification réussi
 
 ## Insérer du code javascript dans métabase avec Apache
 
-Si metabase est distribuer via apache, comme par exemple avec un configuration de ce genre :
+Si metabase est distribué par apache, comme par exemple avec cette configuration :
 
     <Location "/metabase/">
             ProxyPass http://localhost:3213/
@@ -47,11 +47,11 @@ Si metabase est distribuer via apache, comme par exemple avec un configuration d
             SSLRequireSSL
     </Location>
 
-Il est possible d'insérer du code html dans la réponse http avec les modules apache substitute et filter, filter est généralement activer de base et il est nécessaire d'activer substitute :
+Il est possible d'insérer du code html dans la réponse http avec les modules apache substitute et filter. Filter est généralement activé de base, il est par contre nécessaire d'activer substitute :
 
     sudo a2enmod substitute
 
-Puis voici la configuration apache pour insérer l'utilisation d'un fichier javascript `/js/metabase_autologin.js` dans toute les pages de métabase :
+Puis voici la configuration apache pour insérer un fichier javascript `/js/metabase_autologin.js` dans toute les pages html de métabase :
 
 
     <Location "/metabase/">
