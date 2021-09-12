@@ -1,6 +1,6 @@
 ---
 title: Autologin avec metabase
-date:  2021-08-31 21:00
+date:  2021-09-13 01:07
 layout: post
 ---
 
