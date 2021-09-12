@@ -28,7 +28,7 @@ Commenter une ligne : `ctrl + maj + /`
 
 Voir la ligne d'un fichier dans github : `ctrl + maj + p` ➕ `🔎 git blame`
 
-Séléctionner une même chaîne de caractère plusieurs fois et permet une édition multiple : `ctrl + d` 🔄
+Sélectionner une même chaîne de caractère plusieurs fois pour une édition multiple : `ctrl + d` 🔄
 
 ## Arborescence de fichier
 
