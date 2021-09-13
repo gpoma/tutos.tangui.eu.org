@@ -51,7 +51,7 @@ Il est possible d'insérer du code html dans la réponse http avec les modules a
 
     sudo a2enmod substitute
 
-Puis voici la configuration apache pour insérer un fichier javascript `/js/metabase_autologin.js` dans toute les pages html de métabase :
+Voici la configuration apache pour insérer l'appel à un fichier javascript nommé `/js/metabase_autologin.js` dans toute les pages html de métabase :
 
 
     <Location "/metabase/">
