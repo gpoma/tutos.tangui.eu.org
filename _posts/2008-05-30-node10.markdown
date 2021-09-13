@@ -3,6 +3,7 @@ layout: post
 title:  "mplayer : Error while parsing chunk header"
 date:   2008-05-30 11:43:00
 aliases: [ node/10,  10-.*]
+author: "Tangui Morlier"
 ---
 ### Contexte
 

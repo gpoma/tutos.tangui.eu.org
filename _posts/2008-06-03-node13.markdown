@@ -3,6 +3,7 @@ layout: post
 title:  "Renommer le nom (label) d&#039;un volume vfat "
 date:   2008-06-03 21:53:00
 aliases: [ node/13,  13-.*]
+author: "Tangui Morlier"
 ---
 Pour renommer une partition vfat, il faut utiliser la commande mlabel
 issue du projet [mtools](http://mtools.linux.lu/).

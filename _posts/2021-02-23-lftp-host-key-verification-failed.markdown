@@ -2,6 +2,7 @@
 title: sftp avec lftp - Host key verification failed
 date:  2021-02-23 12:00
 layout: post
+author: "Tangui Morlier"
 ---
 
 # LFTP : Résoudre une erreur « Host key verification failed » sftp

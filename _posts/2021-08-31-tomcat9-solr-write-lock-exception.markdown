@@ -2,6 +2,7 @@
 title: Problème decriture du lock solr avec tomcat 9
 date:  2021-08-31 21:00
 layout: post
+author: "Tangui Morlier"
 ---
 
 # Problème d'écriture du fichier de lock SOLR avec tomcat 9

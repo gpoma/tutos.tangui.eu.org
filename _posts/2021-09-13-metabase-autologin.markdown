@@ -2,6 +2,7 @@
 title: Autologin avec metabase
 date:  2021-09-13 01:07
 layout: post
+author: "Vincent LAURENT"
 ---
 
 # Autologin avec metabase

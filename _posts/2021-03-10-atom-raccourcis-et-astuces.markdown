@@ -2,6 +2,7 @@
 title: Raccourcis et astuces avec Atom
 date:  2021-03-10 21:00
 layout: post
+author: "Vincent LAURENT"
 ---
 
 # Raccourcis et astuces avec Atom
