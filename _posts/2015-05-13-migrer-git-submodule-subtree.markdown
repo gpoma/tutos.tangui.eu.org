@@ -2,6 +2,7 @@
 title: Migrer des submodules git en subtrees
 date:  2015-05-13 23:44
 layout: post
+author: "Tangui Morlier"
 ---
 
 Si les submodules sont pratiques et utiles pour brancher une librairie extérieure à un projet sans avoir a en intégrer le code, ils sont beaucoup moins pratiques lorsqu'on doit en modifier le contenu régulièrement.

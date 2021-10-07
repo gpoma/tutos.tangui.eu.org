@@ -3,6 +3,7 @@ layout: post
 title:  "Lier un squid avec un autre proxy"
 date:   2008-05-28 23:49:00
 aliases: [ node/3,  3-.*]
+author: "Tangui Morlier"
 ---
 ### Contexte
 

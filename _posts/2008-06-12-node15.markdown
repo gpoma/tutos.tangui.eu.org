@@ -3,6 +3,7 @@ layout: post
 title:  "Réparer une table innodb corrompue sous mysql"
 date:   2008-06-12 22:25:00
 aliases: [ node/15,  15-.*]
+author: "Tangui Morlier"
 ---
 Alors que les bases MyISAM possèdent des commandes sql permettant de
 réparer à chaud des tables corrompues (*REPAIR TABLE ...*), innoDB ne le

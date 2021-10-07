@@ -3,6 +3,7 @@ layout: post
 title:  "Apache Erreur 403 : Directory index forbidden"
 date:   2008-05-29 12:44:00
 aliases: [ node/6,  6-.*]
+author: "Tangui Morlier"
 ---
 ### Contexte
 

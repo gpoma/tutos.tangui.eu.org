@@ -2,6 +2,7 @@
 title: Deployer Let's Encrypt sous Debian grace à dehydrated
 date:  2016-08-09 14:00
 layout: post
+author: "Tangui Morlier"
 ---
 
 [Let's Encrypt](https://letsencrypt.org/) est projet qui permet de déployer des certificats https sans avoir recours à des autorités de certification payantes. L'appel à un webservice du projet *letsencrypt* permet de vérifier l'authenticité de la demande et de certifier les clés liés à un nom de domaine.

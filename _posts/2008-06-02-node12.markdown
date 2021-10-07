@@ -3,6 +3,7 @@ layout: post
 title:  "Sauvegarder une base de données avec mysqldump"
 date:   2008-06-02 00:14:00
 aliases: [ node/12,  12-.*]
+author: "Tangui Morlier"
 ---
 L'outil mysqldump permet de sauvegarder une base de données mysql dans
 le format sql.

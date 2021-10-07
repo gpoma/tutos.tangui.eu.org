@@ -2,6 +2,7 @@
 title: Créer un VPN avec tinc
 date:  2015-05-11 18:54
 layout: post
+author: "Tangui Morlier"
 ---
 
 [Tinc](http://tinc-vpn.org/) est un logiciel libre très partique pour créer un VPN simplement. Il a de plus la qualité d'être bien maintenu par Debian.

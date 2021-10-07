@@ -3,6 +3,7 @@ layout: post
 title:  "Erreur 403 d&#039;apache : Permission denied"
 date:   2008-05-29 13:02:00
 aliases: [ node/7,  7-.*]
+author: "Tangui Morlier"
 ---
 ### Contexte
 
