@@ -1,10 +1,10 @@
 ---
-title: "Error: Cannot grant permissions to unsigned jars"
+title: "IcedTea Error: Cannot grant permissions to unsigned jars"
 date:  2023-01-02 15:00
 layout: post
 ---
 
-Chez Online, l'accès KVM nécessite l'execution d'un code java via icedtea-web. Pour certains vieux serveurs, un erreur `Cannot grant permissions to unsigned jars` doit être résolue.
+Chez Online, l'accès KVM nécessite l'execution d'un code java via `icedtea-web`. Pour certains vieux serveurs, un erreur `Cannot grant permissions to unsigned jars` doit être résolue.
 
 
     $ javaws viewer.jnlp
@@ -33,7 +33,7 @@ Pour se faire, vous pouvez identifier les `jar` qui posent problème via la `jav
     Jar found at /home/user/.cache/icedtea-web/cache/2/https/192.168.1.1/443/software/avctKVMIOLinux64.jarhas been verified as UNSIGNED
     Jar found at /home/user/.cache/icedtea-web/cache/1/https/192.168.1.1/443/software/avctKVM.jarhas been verified as UNSIGNED
 
-On peut reproduire l'erreur via l'outil `javasigner` :
+On peut reproduire l'erreur via l'outil `jarsigner` :
 
     $ jarsigner -verify -certs -verbose /home/user/.cache/icedtea-web/cache/3/https/192.168.1.1/443/software/avctVMLinux64.jar
 
@@ -75,20 +75,20 @@ La version de mon java étant 17.0.5 :
     OpenJDK Runtime Environment (build 17.0.5+8-Debian-2)
     OpenJDK 64-Bit Server VM (build 17.0.5+8-Debian-2, mixed mode, sharing)
 
-il faut modifier la configuration qui se trouve dans `/usr/lib/jvm/java-1.17.0-openjdk-amd64/conf/security/` :
+il faut modifier la configuration de la version 17.0 qui se trouve dans `/usr/lib/jvm/java-1.17.0-openjdk-amd64/conf/security/java.security` :
 
     #jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, DSA keySize < 1024, SHA1 denyAfter 2019-01-01
     jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, DSA keySize < 1024
 
 
-`javasigner` indique maintenant que le jar est vérifié :
+`jarsigner` indique maintenant que le jar est vérifié :
 
     $ jarsigner -verify -certs -verbose /home/user/.cache/icedtea-web/cache/3/https/192.168.1.1/443/software/avctVMLinux64.jar
     ...
     
     jar verified.
     
-et icetea-web ne pose plus de problème :
+et icedtea-web ne pose plus de problème :
 
     $ javaws viewer.jnlp
 
