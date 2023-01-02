@@ -6,6 +6,24 @@ layout: post
 
 Chez Online, l'accès KVM nécessite l'execution d'un code java via icedtea-web. Pour certains vieux serveurs, un erreur `Cannot grant permissions to unsigned jars` doit être résolue.
 
+
+    $ javaws viewer.jnlp
+    netx: Initialization Error: Could not initialize application. (Fatal: Application Error: Cannot grant permissions to unsigned jars. Application requested security permissions, but jars are not signed.)
+    net.sourceforge.jnlp.LaunchException: Fatal: Initialization Error: Could not initialize application. The application has not been initialized, for more information execute javaws from the command line.
+    	at java.desktop/net.sourceforge.jnlp.Launcher.createApplication(Launcher.java:823)
+    	at java.desktop/net.sourceforge.jnlp.Launcher.launchApplication(Launcher.java:531)
+    	at java.desktop/net.sourceforge.jnlp.Launcher$TgThread.run(Launcher.java:946)
+    Caused by: net.sourceforge.jnlp.LaunchException: Fatal: Application Error: Cannot grant permissions to unsigned jars. Application requested security permissions, but jars are not signed.
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader$SecurityDelegateImpl.getClassLoaderSecurity(JNLPClassLoader.java:2488)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.setSecurity(JNLPClassLoader.java:384)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.initializeResources(JNLPClassLoader.java:807)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.<init>(JNLPClassLoader.java:337)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.createInstance(JNLPClassLoader.java:420)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.getInstance(JNLPClassLoader.java:494)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.getInstance(JNLPClassLoader.java:467)
+    	at java.desktop/net.sourceforge.jnlp.Launcher.createApplication(Launcher.java:815)
+    	... 2 more
+
 Pour se faire, vous pouvez identifier les `jar` qui posent problème via la `java console` :
 
     ...
