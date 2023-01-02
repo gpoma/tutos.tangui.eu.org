@@ -4,7 +4,7 @@ date:  2023-01-02 15:00
 layout: post
 ---
 
-Chez Online, l'accès KVM nécessite l'execution d'un code java via `icedtea-web`. Pour certains vieux serveurs, un erreur `Cannot grant permissions to unsigned jars` doit être résolue.
+Chez Online, l'accès KVM nécessite parfois l'execution d'un code java via `icedtea-web`. Pour certains vieux serveurs, un erreur `Cannot grant permissions to unsigned jars` doit être résolue.
 
 
     $ javaws viewer.jnlp
@@ -64,7 +64,7 @@ On peut reproduire l'erreur via l'outil `jarsigner` :
     
       jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, DSA keySize < 1024, SHA1 denyAfter 2019-01-01
 
-Il faut donc intervenir sur l'option `jdk.jar.disabledAlgorithms` de `java` pour réactiver les éléments désactivé par défaut. Ici `SHA1` et `SHA1withDSA`.
+Il faut donc intervenir sur l'option `jdk.jar.disabledAlgorithms` de `java` pour réactiver les éléments désactivés par défaut. Ici `SHA1` (et par incidence `SHA1withDSA` et `MD5withRSA`).
 
 Pour le faire, il faut éditer le fichier `java.security` de la version de votre java.
 
@@ -75,7 +75,7 @@ La version de mon java étant 17.0.5 :
     OpenJDK Runtime Environment (build 17.0.5+8-Debian-2)
     OpenJDK 64-Bit Server VM (build 17.0.5+8-Debian-2, mixed mode, sharing)
 
-il faut modifier la configuration de la version 17.0 qui se trouve dans `/usr/lib/jvm/java-1.17.0-openjdk-amd64/conf/security/java.security` :
+je modifie la configuration de la version 17.0 qui se trouve dans `/usr/lib/jvm/java-1.17.0-openjdk-amd64/conf/security/java.security` :
 
     #jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, DSA keySize < 1024, SHA1 denyAfter 2019-01-01
     jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, DSA keySize < 1024
