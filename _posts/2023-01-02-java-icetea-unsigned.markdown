@@ -1,5 +1,5 @@
 ---
-title: Error: Cannot grant permissions to unsigned jars
+title: "Error: Cannot grant permissions to unsigned jars"
 date:  2023-01-02 15:00
 layout: post
 ---
