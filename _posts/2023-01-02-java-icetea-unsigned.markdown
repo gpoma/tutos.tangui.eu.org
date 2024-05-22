@@ -1,10 +1,28 @@
 ---
-title: Error: Cannot grant permissions to unsigned jars
+title: "IcedTea Error: Cannot grant permissions to unsigned jars"
 date:  2023-01-02 15:00
 layout: post
 ---
 
-Chez Online, l'accès KVM nécessite l'execution d'un code java via icedtea-web. Pour certains vieux serveurs, un erreur `Cannot grant permissions to unsigned jars` doit être résolue.
+Chez Online, l'accès KVM nécessite parfois l'execution d'un code java via `icedtea-web`. Pour certains vieux serveurs, un erreur `Cannot grant permissions to unsigned jars` doit être résolue.
+
+
+    $ javaws viewer.jnlp
+    netx: Initialization Error: Could not initialize application. (Fatal: Application Error: Cannot grant permissions to unsigned jars. Application requested security permissions, but jars are not signed.)
+    net.sourceforge.jnlp.LaunchException: Fatal: Initialization Error: Could not initialize application. The application has not been initialized, for more information execute javaws from the command line.
+    	at java.desktop/net.sourceforge.jnlp.Launcher.createApplication(Launcher.java:823)
+    	at java.desktop/net.sourceforge.jnlp.Launcher.launchApplication(Launcher.java:531)
+    	at java.desktop/net.sourceforge.jnlp.Launcher$TgThread.run(Launcher.java:946)
+    Caused by: net.sourceforge.jnlp.LaunchException: Fatal: Application Error: Cannot grant permissions to unsigned jars. Application requested security permissions, but jars are not signed.
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader$SecurityDelegateImpl.getClassLoaderSecurity(JNLPClassLoader.java:2488)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.setSecurity(JNLPClassLoader.java:384)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.initializeResources(JNLPClassLoader.java:807)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.<init>(JNLPClassLoader.java:337)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.createInstance(JNLPClassLoader.java:420)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.getInstance(JNLPClassLoader.java:494)
+    	at java.desktop/net.sourceforge.jnlp.runtime.JNLPClassLoader.getInstance(JNLPClassLoader.java:467)
+    	at java.desktop/net.sourceforge.jnlp.Launcher.createApplication(Launcher.java:815)
+    	... 2 more
 
 Pour se faire, vous pouvez identifier les `jar` qui posent problème via la `java console` :
 
@@ -15,7 +33,7 @@ Pour se faire, vous pouvez identifier les `jar` qui posent problème via la `jav
     Jar found at /home/user/.cache/icedtea-web/cache/2/https/192.168.1.1/443/software/avctKVMIOLinux64.jarhas been verified as UNSIGNED
     Jar found at /home/user/.cache/icedtea-web/cache/1/https/192.168.1.1/443/software/avctKVM.jarhas been verified as UNSIGNED
 
-On peut reproduire l'erreur via l'outil `javasigner` :
+On peut reproduire l'erreur via l'outil `jarsigner` :
 
     $ jarsigner -verify -certs -verbose /home/user/.cache/icedtea-web/cache/3/https/192.168.1.1/443/software/avctVMLinux64.jar
 
@@ -46,7 +64,7 @@ On peut reproduire l'erreur via l'outil `javasigner` :
     
       jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, DSA keySize < 1024, SHA1 denyAfter 2019-01-01
 
-Il faut donc intervenir sur l'option `jdk.jar.disabledAlgorithms` de `java` pour réactiver les éléments désactivé par défaut. Ici `SHA1` et `SHA1withDSA`.
+Il faut donc intervenir sur l'option `jdk.jar.disabledAlgorithms` de `java` pour réactiver les éléments désactivés par défaut. Ici `SHA1` (et par incidence `SHA1withDSA` et `MD5withRSA`).
 
 Pour le faire, il faut éditer le fichier `java.security` de la version de votre java.
 
@@ -63,14 +81,14 @@ il faut modifier la configuration qui se trouve dans `/usr/lib/jvm/java-1.17.0-o
     jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, DSA keySize < 1024
 
 
-`javasigner` indique maintenant que le jar est vérifié :
+`jarsigner` indique maintenant que le jar est vérifié :
 
     $ jarsigner -verify -certs -verbose /home/user/.cache/icedtea-web/cache/3/https/192.168.1.1/443/software/avctVMLinux64.jar
     ...
     
     jar verified.
     
-et icetea-web ne pose plus de problème :
+et icedtea-web ne pose plus de problème :
 
     $ javaws viewer.jnlp
 
