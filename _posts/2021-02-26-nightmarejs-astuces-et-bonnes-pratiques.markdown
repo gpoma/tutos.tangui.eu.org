@@ -2,6 +2,7 @@
 title: Quelques bonne pratiques et astuces avec nightmarejs
 date:  2021-02-26 12:00
 layout: post
+author: "Vincent LAURENT"
 ---
 
 # Quelques bonne pratiques et astuces avec nightmarejs

@@ -2,6 +2,7 @@
 title: Mise en place d'une politique de mot de passe sous OpenLDAP
 date:  2017-04-27 14:00
 layout: post
+author: "Tangui Morlier"
 ---
 
 # Mise en place d'une politique de mot de passe sous OpenLDAP

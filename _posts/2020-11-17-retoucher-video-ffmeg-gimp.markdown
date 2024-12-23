@@ -2,6 +2,7 @@
 title: Retoucher une vidéo grace à ffmepg et gimp
 date:  2020-11-17 12:00
 layout: post
+author: "Tangui Morlier"
 ---
 
 # Comment retoucher une vidéo grace à ffmepg et gimp

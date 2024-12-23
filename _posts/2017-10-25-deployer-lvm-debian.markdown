@@ -2,6 +2,7 @@
 title: Déployer lvm sur une debian fraichement installée (par exemple pour une dédibox)
 date:  2017-10-25 17:30
 layout: post
+author: "Vincent LAURENT"
 ---
 
 En root

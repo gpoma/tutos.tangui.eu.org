@@ -3,6 +3,7 @@ layout: post
 title:  "Faire en sorte que mon identification par clée publique fonctionne avec ssh"
 date:   2008-06-19 15:26:00
 aliases: [ node/16,  16-.*]
+author: "Tangui Morlier"
 ---
 ### Contexte
 

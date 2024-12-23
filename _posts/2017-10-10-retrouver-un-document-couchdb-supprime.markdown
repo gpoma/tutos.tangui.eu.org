@@ -2,6 +2,7 @@
 title: Retrouver un document couchdb supprimé
 date:  2017-10-10 11:30
 layout: post
+author: "Vincent LAURENT"
 ---
 
 # Retrouver un document couchdb supprimé

@@ -2,6 +2,7 @@
 title: Prendre en compte les fichiers .editorconfig dans atom
 date:  2021-03-09 17:00
 layout: post
+author: "Vincent LAURENT"
 ---
 
 # Prendre en compte les fichiers .editorconfig dans atom
